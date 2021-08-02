@@ -2,12 +2,8 @@ package com.example.trackmypantry.ViewModel;
 
 import android.app.Application;
 
-import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
-import androidx.room.DatabaseConfiguration;
-import androidx.room.InvalidationTracker;
-import androidx.sqlite.db.SupportSQLiteOpenHelper;
 
 import com.example.trackmypantry.DataBase.AppDataBase;
 import com.example.trackmypantry.DataBase.Category;
@@ -22,7 +18,8 @@ public class MainActivityViewModel extends AndroidViewModel {
     public MainActivityViewModel(Application application){
         super(application);
         listOfCategories = new MutableLiveData<>();
-        appDataBase = AppDataBase.getDBinstance(getApplication().getApplicationContext());
+        appDataBase = AppDataBase.getDataBaseInstance(getApplication().getApplicationContext());
+        getAllCategories();
     }
     //Observer for the liveData, so for the categories you have
     public MutableLiveData<List<Category>> getListOfCategoriesObserver(){

@@ -9,11 +9,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.trackmypantry.DataBase.Category;
 import com.example.trackmypantry.ViewModel.MainActivityViewModel;
@@ -22,23 +24,29 @@ import org.w3c.dom.CDATASection;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements CategoryListAdapter.HandleCategoryClick {
 
     public MainActivityViewModel viewModel;
     public RecyclerView recyclerView;
+    public CategoryListAdapter categoryListAdapter;
+    public TextView noCategoryTextView;
+    public Category categoryForEdit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        recyclerView = findViewById(R.id.recyclerView);
+
+        recyclerView = (RecyclerView)  findViewById(R.id.recyclerView);
+        noCategoryTextView = (TextView) findViewById(R.id.categoryTextView);
         getSupportActionBar().setTitle("Track My Pantry");
+
         //Setting the onClick to the addButton
         ImageView addCategoryButton = findViewById(R.id.addNewCategoryImageView);
         addCategoryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showAddCategoryDialog();
+                showAddCategoryDialog(false);
             }
         });
         initViewModel();
@@ -47,7 +55,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void initRecyclerView(){
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter()
+        categoryListAdapter = new CategoryListAdapter(this, this);
+        recyclerView.setAdapter(categoryListAdapter);
     }
 
     private void initViewModel(){
@@ -55,16 +64,21 @@ public class MainActivity extends AppCompatActivity {
         viewModel.getListOfCategoriesObserver().observe(this, new Observer<List<Category>>() {
             @Override
             public void onChanged(List<Category> categories) {
-                if(categories == null)
-                    findViewById(R.id.categoryTextView).setVisibility(View.VISIBLE);
-                else
-                    findViewById(R.id.categoryTextView).setVisibility(View.GONE);
+                if (categories == null){
+
+                    noCategoryTextView.setVisibility(View.VISIBLE);
+                    recyclerView.setVisibility(View.GONE);
+                } else {
+                    categoryListAdapter.setCategoryList(categories);
+                    noCategoryTextView.setVisibility(View.GONE);
+                    recyclerView.setVisibility(View.VISIBLE);
+                }
             }
         });
     }
 
-    private void showAddCategoryDialog(){
-        AlertDialog newCategory = new AlertDialog.Builder(this).create();
+    private void showAddCategoryDialog(boolean isForEdit){
+        AlertDialog dialogBuilder = new AlertDialog.Builder(this).create();
         View dialogView = getLayoutInflater().inflate(R.layout.add_category_dialog, null);
         EditText enterCategoryInput = dialogView.findViewById(R.id.enterCategoryInput);
         TextView createButton = dialogView.findViewById(R.id.createButton);
@@ -102,5 +116,20 @@ public class MainActivity extends AppCompatActivity {
         dialogBuilder.setView(dialogView);
         dialogBuilder.show();
     }
+
+    @Override
+    public void itemClick(Category category) {
+
+    }
+
+    @Override
+    public void deleteClick(Category category) {
+        viewModel.deleteCategory(category);
+    }
+
+    @Override
+    public void editClick(Category category) {
+        this.categoryForEdit = category;
+        showAddCategoryDialog(true);
     }
 }
