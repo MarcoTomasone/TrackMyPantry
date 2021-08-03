@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -119,7 +120,10 @@ public class MainActivity extends AppCompatActivity implements CategoryListAdapt
 
     @Override
     public void itemClick(Category category) {
-
+        Intent intent = new Intent(MainActivity.this, ProductListActivity.class);
+        intent.putExtra("category_id", category.categoryId);
+        intent.putExtra("category_name", category.categoryName);
+        startActivity(intent);
     }
 
     @Override
