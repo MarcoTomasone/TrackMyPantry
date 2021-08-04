@@ -11,21 +11,24 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.trackmypantry.DataBase.Category;
+import com.example.trackmypantry.DataBase.Product;
 
 import java.util.List;
 
+import javax.net.ssl.HandshakeCompletedEvent;
+
 public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.MyViewHolder> {
     private Context context;
-    private List<Category> categoryList;
-    private HandleCategoryClick clickListener;
+    private List<Product> productList;
+    private HandleProductClick clickListener;
 
-    public ProductListAdapter(Context context, HandleCategoryClick clickListener) {
+    public ProductListAdapter(Context context, HandleProductClick clickListener) {
         this.context = context;
         this.clickListener = clickListener;
     }
 
-    public void setCategoryList(List<Category> categoryList){
-        this.categoryList = categoryList;
+    public void setProductList(List<Product> productList){
+        this.productList = productList;
         notifyDataSetChanged();
     }
 
@@ -38,36 +41,36 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
 
     @Override //Set data to our TextView
     public void onBindViewHolder(@NonNull ProductListAdapter.MyViewHolder holder, int position) {
-        holder.tvCategoryName.setText(this.categoryList.get(position).categoryName);
+        holder.tvCategoryName.setText(this.productList.get(position).productName);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                clickListener.itemClick(categoryList.get(position));
+                clickListener.itemClick(productList.get(position));
             }
         });
 
         holder.editCategory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                clickListener.editClick(categoryList.get(position));
+                clickListener.editClick(productList.get(position));
             }
         });
 
         holder.deleteCategory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                clickListener.deleteClick(categoryList.get(position));
+                clickListener.deleteClick(productList.get(position));
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        if (categoryList == null || categoryList.size() == 0)
+        if (productList == null || productList.size() == 0)
             return 0;
         else
-            return  categoryList.size();
+            return  productList.size();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder{
@@ -83,9 +86,9 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
         }
     }
 
-    public interface HandleCategoryClick {
-        void itemClick(Category category);
-        void deleteClick(Category category);
-        void editClick(Category category);
+    public interface HandleProductClick {
+        void itemClick(Product product);
+        void deleteClick(Product product);
+        void editClick(Product product);
     }
 }

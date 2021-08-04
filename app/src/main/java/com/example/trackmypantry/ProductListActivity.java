@@ -13,8 +13,9 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.trackmypantry.DataBase.Category;
+import com.example.trackmypantry.DataBase.Product;
 
-public class ProductListActivity extends AppCompatActivity {
+public class ProductListActivity extends AppCompatActivity implements ProductListAdapter.HandleProductClick {
     private Category currentCategory;
     private ProductListAdapter productListAdapter;
     @Override
@@ -42,9 +43,30 @@ public class ProductListActivity extends AppCompatActivity {
     public void saveNewProduct(String productName){
 
     }
+
+    public void initViewModel(){
+
+    }
+
     public void initRecyclerView(){
         RecyclerView recyclerView = findViewById(R.id.recyclerViewProduct);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter();
+        productListAdapter = new ProductListAdapter(this, this);
+        recyclerView.setAdapter(productListAdapter);
+    }
+
+    @Override
+    public void itemClick(Product product) {
+
+    }
+
+    @Override
+    public void deleteClick(Product product) {
+
+    }
+
+    @Override
+    public void editClick(Product product) {
+
     }
 }
