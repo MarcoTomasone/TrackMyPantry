@@ -1,6 +1,7 @@
 package com.example.trackmypantry;
 
 import android.content.Context;
+import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,7 +42,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
 
     @Override //Set data to our TextView
     public void onBindViewHolder(@NonNull ProductListAdapter.MyViewHolder holder, int position) {
-        holder.tvCategoryName.setText(this.productList.get(position).productName);
+        holder.tvProductName.setText(this.productList.get(position).productName);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,6 +64,10 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
                 clickListener.deleteClick(productList.get(position));
             }
         });
+        if(this.productList.get(position).isEmpty)
+            holder.tvProductName.setPaintFlags(holder.tvProductName.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+        else
+            holder.tvProductName.setPaintFlags(0);
     }
 
     @Override
@@ -74,13 +79,13 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder{
-        TextView tvCategoryName;
+        TextView tvProductName;
         ImageView deleteCategory;
         ImageView editCategory;
 
         public MyViewHolder(View view){
             super(view);
-            tvCategoryName = view.findViewById(R.id.textViewCategoryName);
+            tvProductName = view.findViewById(R.id.textViewCategoryName);
             deleteCategory = view.findViewById(R.id.image_delete_category);
             editCategory = view.findViewById(R.id.image_edit_category);
         }
