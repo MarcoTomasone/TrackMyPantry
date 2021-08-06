@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.media.Image;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -14,11 +13,10 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.trackmypantry.Adapter.ProductListAdapter;
 import com.example.trackmypantry.DataBase.Category;
 import com.example.trackmypantry.DataBase.Product;
 import com.example.trackmypantry.ViewModel.ProductListActivityViewModel;
-
-import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -112,7 +110,6 @@ public class ProductListActivity extends AppCompatActivity implements ProductLis
     public void editClick(Product product) {
         this.productToUpdate = product;
         ((EditText) findViewById(R.id.addNewProduct)).setText("");
-
         viewModel.updateProduct(product);
     }
     private void updateProduct(String productName) {

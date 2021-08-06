@@ -1,7 +1,6 @@
-package com.example.trackmypantry;
+package com.example.trackmypantry.Adapter;
 
 import android.content.Context;
-import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,10 +11,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.trackmypantry.DataBase.Category;
+import com.example.trackmypantry.R;
 
 import java.util.List;
-
-import javax.net.ssl.HandshakeCompletedEvent;
 
 public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListAdapter.MyViewHolder> {
     private Context context;

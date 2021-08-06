@@ -1,4 +1,4 @@
-package com.example.trackmypantry;
+package com.example.trackmypantry.Adapter;
 
 import android.content.Context;
 import android.graphics.Paint;
@@ -11,12 +11,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.trackmypantry.DataBase.Category;
 import com.example.trackmypantry.DataBase.Product;
+import com.example.trackmypantry.R;
 
 import java.util.List;
-
-import javax.net.ssl.HandshakeCompletedEvent;
 
 public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.MyViewHolder> {
     private Context context;

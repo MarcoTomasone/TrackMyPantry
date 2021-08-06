@@ -1,6 +1,5 @@
 package com.example.trackmypantry;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
@@ -12,16 +11,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.trackmypantry.Adapter.CategoryListAdapter;
 import com.example.trackmypantry.DataBase.Category;
 import com.example.trackmypantry.ViewModel.MainActivityViewModel;
-
-import org.w3c.dom.CDATASection;
 
 import java.util.List;
 
