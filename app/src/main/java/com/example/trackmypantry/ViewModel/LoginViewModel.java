@@ -1,20 +1,14 @@
 package com.example.trackmypantry.ViewModel;
 
 import android.app.Application;
-import android.util.Log;
-import android.widget.Toast;
 
 import androidx.lifecycle.AndroidViewModel;
-import androidx.lifecycle.MutableLiveData;
 
 import com.example.trackmypantry.DataBase.Authentication;
+import com.example.trackmypantry.DataBase.LoginData;
 import com.example.trackmypantry.DataBase.RegisterData;
 import com.example.trackmypantry.Network.APIService;
 import com.example.trackmypantry.Network.RetroInstance;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
-import java.util.Arrays;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -22,7 +16,7 @@ import retrofit2.Response;
 
 public class LoginViewModel extends AndroidViewModel {
     private Authentication myResponse;
-
+    private String accessToken = null;
     public LoginViewModel(Application application){
         super(application);
     }
@@ -42,6 +36,26 @@ public class LoginViewModel extends AndroidViewModel {
             }
         });
         if(myResponse == null)
+            return false;
+        else
+            return true;
+    }
+
+    public boolean loginCall(LoginData loginData) {
+        APIService apiService = RetroInstance.getRetroClient().create(APIService.class);
+        Call<String> call = apiService.loginMethod(loginData);
+        call.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                accessToken = response.body();
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                //TODO: Gestione failure
+            }
+        });
+        if(accessToken == null)
             return false;
         else
             return true;

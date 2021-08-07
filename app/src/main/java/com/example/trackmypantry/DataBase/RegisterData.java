@@ -1,13 +1,10 @@
 package com.example.trackmypantry.DataBase;
 
-public class RegisterData {
+public class RegisterData extends LoginData{
     String username;
-    String email;
-    String password;
 
     public RegisterData(String username, String email, String password){
-            this.username = username;
-            this.email = email;
-            this.password = password;
-        }
+        super(email, password);
+        this.username = username;
     }
+}

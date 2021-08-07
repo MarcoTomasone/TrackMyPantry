@@ -4,13 +4,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.trackmypantry.DataBase.LoginData;
 import com.example.trackmypantry.DataBase.RegisterData;
 import com.example.trackmypantry.ViewModel.LoginViewModel;
 
@@ -59,7 +59,10 @@ public class LoginActivity extends AppCompatActivity {
                 if(!isRegister){
                     String email = emailTV.getText().toString();
                     String password = passwordTV.getText().toString();
-                    //viewModel.makeAPICall(email, password);
+                    if(viewModel.loginCall(new LoginData(email, password)))
+                        Toast.makeText(LoginActivity.this, "You have logged Successfully!", Toast.LENGTH_SHORT).show();
+                    else
+                        Toast.makeText(LoginActivity.this, "Error! Try again", Toast.LENGTH_SHORT).show();
                 } else {
                     String name = nameTV.getText().toString();
                     String email = emailTV.getText().toString();
