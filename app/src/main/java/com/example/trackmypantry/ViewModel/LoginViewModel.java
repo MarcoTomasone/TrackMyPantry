@@ -2,6 +2,7 @@ package com.example.trackmypantry.ViewModel;
 
 import android.app.Application;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
@@ -26,25 +27,24 @@ public class LoginViewModel extends AndroidViewModel {
         super(application);
     }
 
-    public void makeAPICall(RegisterData registerData) {
+    //TODO: Check if true false is a good programming practice
+    public boolean registerCall(RegisterData registerData) {
         APIService apiService = RetroInstance.getRetroClient().create(APIService.class);
         Call<Authentication> call = apiService.registrationMethod(registerData);
-        Log.i("myLog", String.valueOf(registerData));
         call.enqueue(new Callback<Authentication>() {
             @Override
             public void onResponse(Call<Authentication> call, Response<Authentication> response) {
-                //myResponse = response.body();
-                Log.w("2.0 ",new Gson().toJson(response));
+                myResponse = (Authentication) response.body();
             }
-
             @Override
             public void onFailure(Call<Authentication> call, Throwable t) {
-                //myResponse = null;
-                //System.out.println(myResponse);
-
-
+               myResponse = null;
             }
         });
+        if(myResponse == null)
+            return false;
+        else
+            return true;
     }
 }
 
