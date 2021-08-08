@@ -24,7 +24,7 @@ public class LoginActivity extends AppCompatActivity {
     Button button;
     boolean isRegister = false; //false if is the Login, true if is Register
     LoginViewModel viewModel;
-    SharedPreferences pref;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +36,6 @@ public class LoginActivity extends AppCompatActivity {
         register = findViewById(R.id.registerTextView);
         button = findViewById(R.id.buttonSignInUp);
         nameTV.setVisibility(View.GONE);
-        pref = getApplicationContext().getSharedPreferences("MY_PREFERENCES", MODE_PRIVATE);
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

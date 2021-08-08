@@ -40,15 +40,15 @@ public class ProductListActivity extends AppCompatActivity implements ProductLis
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String productName = addNewProduct.getText().toString();
-                if (TextUtils.isEmpty(productName)) {
+                String barcode = addNewProduct.getText().toString();
+                if (TextUtils.isEmpty(barcode)) {
                     Toast.makeText(ProductListActivity.this, "Insert Product Name", Toast.LENGTH_LONG).show();
                     return;
                 }
                 if(productToUpdate == null)
-                    saveNewProduct(productName);
+                    saveNewProduct(barcode);
                 else
-                    updateProduct(productName);
+                    updateProduct(barcode);
             }
         });
         initRecyclerView();
@@ -83,22 +83,20 @@ public class ProductListActivity extends AppCompatActivity implements ProductLis
         recyclerView.setAdapter(productListAdapter);
     }
 
-    public void saveNewProduct(String productName){
-        Product product = new Product();
-        product.productName = productName;
-        product.categoryId = currentCategory.categoryId;
-        viewModel.insertProduct(product);
+    public void saveNewProduct(String barcode){
+
+        viewModel.getProduct(barcode);
         ((EditText) findViewById(R.id.addNewProduct)).setText("");
 
     }
 
     @Override
     public void itemClick(Product product) {
-        if(product.isEmpty)
+   /*     if(product.isEmpty)
             product.isEmpty = false;
         else
             product.isEmpty = true;
-        viewModel.updateProduct(product);
+        viewModel.updateProduct(product);*/
     }
 
     @Override
@@ -113,10 +111,9 @@ public class ProductListActivity extends AppCompatActivity implements ProductLis
         viewModel.updateProduct(product);
     }
     private void updateProduct(String productName) {
-        productToUpdate.productName = productName;
+        productToUpdate.setName(productName);
         viewModel.updateProduct(productToUpdate);
         ((EditText) findViewById(R.id.addNewProduct)).setText("");
         productToUpdate = null;
-
     }
 }

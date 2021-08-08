@@ -40,7 +40,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
 
     @Override //Set data to our TextView
     public void onBindViewHolder(@NonNull ProductListAdapter.MyViewHolder holder, int position) {
-        holder.tvProductName.setText(this.productList.get(position).productName);
+        holder.tvProductName.setText(this.productList.get(position).getName());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,10 +62,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
                 clickListener.deleteClick(productList.get(position));
             }
         });
-        if(this.productList.get(position).isEmpty)
-            holder.tvProductName.setPaintFlags(holder.tvProductName.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-        else
-            holder.tvProductName.setPaintFlags(0);
+        //TODO: if isEmpty
     }
 
     @Override

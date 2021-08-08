@@ -21,14 +21,15 @@ import retrofit2.Response;
 public class LoginViewModel extends AndroidViewModel {
     private Authentication registerResponse;
     private AccessToken accessToken;
-
+    private APIService apiService;
     public LoginViewModel(Application application){
         super(application);
+        apiService = RetroInstance.getRetroClient().create(APIService.class);
     }
 
     //TODO: Check if true false is a good programming practice
     public boolean registerCall(RegisterData registerData) {
-        APIService apiService = RetroInstance.getRetroClient().create(APIService.class);
+
         Call<Authentication> call = apiService.registrationMethod(registerData);
         call.enqueue(new Callback<Authentication>() {
             @Override
@@ -47,7 +48,6 @@ public class LoginViewModel extends AndroidViewModel {
     }
 
     public boolean loginCall(LoginData loginData) {
-        APIService apiService = RetroInstance.getRetroClient().create(APIService.class);
         Call<AccessToken> call = apiService.loginMethod(loginData);
         call.enqueue(new Callback<AccessToken>() {
             @Override
