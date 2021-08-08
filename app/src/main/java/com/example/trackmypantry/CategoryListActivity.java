@@ -17,12 +17,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.trackmypantry.Adapter.CategoryListAdapter;
-import com.example.trackmypantry.DataBase.Category;
+import com.example.trackmypantry.DataType.Category;
 import com.example.trackmypantry.ViewModel.MainActivityViewModel;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements CategoryListAdapter.HandleCategoryClick {
+public class CategoryListActivity extends AppCompatActivity implements CategoryListAdapter.HandleCategoryClick {
 
     public MainActivityViewModel viewModel;
     public RecyclerView recyclerView;
@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity implements CategoryListAdapt
             public void onClick(View v) {
                 String name = enterCategoryInput.getText().toString();
                 if(TextUtils.isEmpty(name)) {
-                    Toast.makeText(MainActivity.this, "Enter category name", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CategoryListActivity.this, "Enter category name", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -117,7 +117,7 @@ public class MainActivity extends AppCompatActivity implements CategoryListAdapt
 
     @Override
     public void itemClick(Category category) {
-        Intent intent = new Intent(MainActivity.this, ProductListActivity.class);
+        Intent intent = new Intent(CategoryListActivity.this, ProductListActivity.class);
         intent.putExtra("category_id", category.categoryId);
         intent.putExtra("category_name", category.categoryName);
         startActivity(intent);

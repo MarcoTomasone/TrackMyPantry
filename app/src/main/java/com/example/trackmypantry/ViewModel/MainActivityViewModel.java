@@ -6,7 +6,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.trackmypantry.DataBase.AppDataBase;
-import com.example.trackmypantry.DataBase.Category;
+import com.example.trackmypantry.DataType.Category;
 
 import java.util.List;
 

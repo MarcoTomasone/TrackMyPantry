@@ -1,4 +1,4 @@
-package com.example.trackmypantry.DataBase;
+package com.example.trackmypantry.DataType;
 
 
 public class LoginData {

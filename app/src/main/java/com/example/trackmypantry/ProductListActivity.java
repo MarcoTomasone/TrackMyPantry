@@ -14,8 +14,8 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.trackmypantry.Adapter.ProductListAdapter;
-import com.example.trackmypantry.DataBase.Category;
-import com.example.trackmypantry.DataBase.Product;
+import com.example.trackmypantry.DataType.Category;
+import com.example.trackmypantry.DataType.Product;
 import com.example.trackmypantry.ViewModel.ProductListActivityViewModel;
 
 import java.util.List;

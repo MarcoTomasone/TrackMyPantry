@@ -1,4 +1,4 @@
-package com.example.trackmypantry.DataBase;
+package com.example.trackmypantry.DataType;
 
 import com.google.gson.annotations.SerializedName;
 

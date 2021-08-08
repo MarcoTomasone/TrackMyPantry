@@ -6,6 +6,9 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
+import com.example.trackmypantry.DataType.Category;
+import com.example.trackmypantry.DataType.Product;
+
 import java.util.List;
 
 @Dao

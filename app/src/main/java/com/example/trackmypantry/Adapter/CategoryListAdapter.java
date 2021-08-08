@@ -10,7 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.trackmypantry.DataBase.Category;
+import com.example.trackmypantry.DataType.Category;
 import com.example.trackmypantry.R;
 
 import java.util.List;

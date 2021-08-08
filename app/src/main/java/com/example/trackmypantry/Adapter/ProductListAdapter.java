@@ -11,7 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.trackmypantry.DataBase.Product;
+import com.example.trackmypantry.DataType.Product;
 import com.example.trackmypantry.R;
 
 import java.util.List;

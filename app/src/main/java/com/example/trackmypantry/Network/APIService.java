@@ -1,8 +1,9 @@
 package com.example.trackmypantry.Network;
 
-import com.example.trackmypantry.DataBase.Authentication;
-import com.example.trackmypantry.DataBase.LoginData;
-import com.example.trackmypantry.DataBase.RegisterData;
+import com.example.trackmypantry.DataType.AccessToken;
+import com.example.trackmypantry.DataType.Authentication;
+import com.example.trackmypantry.DataType.LoginData;
+import com.example.trackmypantry.DataType.RegisterData;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -16,6 +17,6 @@ public interface APIService {
 
     @Headers("Content-Type: application/json")
     @POST("auth/login")
-    Call<String> loginMethod(@Body LoginData loginData);
+    Call<AccessToken> loginMethod(@Body LoginData loginData);
 
 }
