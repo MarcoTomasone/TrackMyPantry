@@ -1,5 +1,6 @@
 package com.example.trackmypantry;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -11,6 +12,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.trackmypantry.Adapter.ProductListAdapter;
@@ -35,7 +37,15 @@ public class ProductListActivity extends AppCompatActivity implements ProductLis
         currentCategory.categoryId = getIntent().getIntExtra("category_id", 0 );
         currentCategory.categoryName = getIntent().getStringExtra("category_name");
         getSupportActionBar().setTitle(currentCategory.categoryName);
-        final EditText addNewProduct = findViewById(R.id.addNewProduct);
+        ImageView searchButton = findViewById(R.id.searchForProductImageView);
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showSearchProductDialog();
+            }
+        });
+        //TODO: if all works eliminate this comments
+        /*final EditText addNewProduct = findViewById(R.id.addNewProduct);
         ImageView saveButton = findViewById(R.id.saveButton);
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,16 +60,46 @@ public class ProductListActivity extends AppCompatActivity implements ProductLis
                 else
                     updateProduct(barcode);
             }
-        });
+        }); */
+
         initRecyclerView();
         initViewModel();
         viewModel.getAllItemsList(currentCategory.categoryId);
     }
 
+    private void showSearchProductDialog() {
+        AlertDialog dialogBuilder = new AlertDialog.Builder(this).create();
+        View dialogView = getLayoutInflater().inflate(R.layout.search_product_dialog, null);
+        EditText enterCategoryInput = dialogView.findViewById(R.id.enterBarcode);
+        TextView searchButton = dialogView.findViewById(R.id.search_button);
+        TextView cancelButton = dialogView.findViewById(R.id.cancelButton);
 
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialogBuilder.dismiss();
+            }
+        });
+
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String barcode = enterCategoryInput.getText().toString();
+                if(TextUtils.isEmpty(barcode)) {
+                    Toast.makeText(ProductListActivity.this, "Enter Product Barcode! ", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                viewModel.getProduct(barcode);
+                //TODO: chiama il fragment con la recyclerview
+                dialogBuilder.dismiss();
+            }
+        });
+        dialogBuilder.setView(dialogView);
+        dialogBuilder.show();
+    }
 
     public void initViewModel(){
-        viewModel = new ViewModelProvider(this).get(ProductListActivityViewModel.class);
+        viewModel = new ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory.getInstance(getApplication())).get(ProductListActivityViewModel.class);
         viewModel.getProductListObserver().observe(this, new Observer<List<Product>>() {
             @Override
             public void onChanged(List<Product> products) {
@@ -84,9 +124,10 @@ public class ProductListActivity extends AppCompatActivity implements ProductLis
     }
 
     public void saveNewProduct(String barcode){
-
+/* TODO: if all work eliminate this
         viewModel.getProduct(barcode);
         ((EditText) findViewById(R.id.addNewProduct)).setText("");
+*/
 
     }
 
@@ -107,13 +148,13 @@ public class ProductListActivity extends AppCompatActivity implements ProductLis
     @Override
     public void editClick(Product product) {
         this.productToUpdate = product;
-        ((EditText) findViewById(R.id.addNewProduct)).setText("");
+       // ((EditText) findViewById(R.id.addNewProduct)).setText("");
         viewModel.updateProduct(product);
     }
     private void updateProduct(String productName) {
         productToUpdate.setName(productName);
         viewModel.updateProduct(productToUpdate);
-        ((EditText) findViewById(R.id.addNewProduct)).setText("");
+       // ((EditText) findViewById(R.id.addNewProduct)).setText("");
         productToUpdate = null;
     }
 }

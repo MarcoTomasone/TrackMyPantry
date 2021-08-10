@@ -14,6 +14,15 @@
         android:layout_marginTop="10dp"
         android:paddingBottom="50dp" />
 
+    <ImageView android:id="@+id/searchForProductImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_margin="15dp"
+        android:src="@drawable/ic_add_circle_outline_black_36dp"
+        />
+    <!--
     <EditText android:id="@+id/addNewProduct"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -27,14 +36,14 @@
         android:layout_margin="10dp"
         />
 
-    <ImageView android:id="@+id/saveButton"
+     <ImageView android:id="@+id/saveButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_margin="10dp"
         android:src="@drawable/ic_send_black_24dp"
-        />
+        />  -->
     <TextView android:id="@+id/productsTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

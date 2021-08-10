@@ -10,6 +10,7 @@ public class RetroInstance {
     public static Retrofit retrofit;
 
     public static Retrofit getRetroClient(){
+        //TODO: eliminate this 3 lines
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
@@ -17,7 +18,7 @@ public class RetroInstance {
         if(retrofit == null){
             retrofit = new Retrofit.Builder()
                     .baseUrl(BASE_URL)
-                    .client(client)
+                    .client(client)  //TODO: eliminate this
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
         }

@@ -33,7 +33,7 @@ public class CategoryListActivity extends AppCompatActivity implements CategoryL
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_category_list);
 
         recyclerView = (RecyclerView)  findViewById(R.id.recyclerView);
         noCategoryTextView = (TextView) findViewById(R.id.categoryTextView);
@@ -63,7 +63,6 @@ public class CategoryListActivity extends AppCompatActivity implements CategoryL
             @Override
             public void onChanged(List<Category> categories) {
                 if (categories == null){
-
                     noCategoryTextView.setVisibility(View.VISIBLE);
                     recyclerView.setVisibility(View.GONE);
                 } else {

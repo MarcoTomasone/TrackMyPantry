@@ -2,6 +2,7 @@ package com.example.trackmypantry.Network;
 
 import com.example.trackmypantry.DataType.AccessToken;
 import com.example.trackmypantry.DataType.Authentication;
+import com.example.trackmypantry.DataType.GetProductSchema;
 import com.example.trackmypantry.DataType.LoginData;
 import com.example.trackmypantry.DataType.Product;
 import com.example.trackmypantry.DataType.RegisterData;
@@ -26,7 +27,8 @@ public interface APIService {
     @POST("auth/login")
     Call<AccessToken> loginMethod(@Body LoginData loginData);
 
+    @Headers("Content-Type: application/json")
     @GET("products")
-    Call<List<Product>> getProductByBarcode(@Query("Barcode") String Barcode, @Header("Authorization") String accessToken);
+    Call<GetProductSchema> getProductByBarcode(@Query("barcode") String Barcode, @Header("Authorization") String accessToken);
 
 }
