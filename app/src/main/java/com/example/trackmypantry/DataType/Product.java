@@ -1,5 +1,6 @@
 package com.example.trackmypantry.DataType;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -8,21 +9,26 @@ import androidx.room.PrimaryKey;
 public class Product {
 
     @PrimaryKey
-    private int barcode;
+    @NonNull
     private String id;
     private String name;
     private String description;
-    private int categoryId;
+    private String barcode;
+    private String img;
     private String userId;
     private boolean test;
     private String createdAt;
     private String updatedAt;
+   // private int categoryId;
 
-    public int getBarcode() { return barcode; }
+    public String getBarcode() { return barcode; }
     public String getId() { return id; }
     public String getName() { return name; }
     public String getDescription() { return description; }
-    public int getCategoryId() { return categoryId; }
+
+    public String getImg() { return img; }
+
+    //public int getCategoryId() { return categoryId; }
     public String getUserId() { return userId; }
     public boolean getTest() { return test; }
     public String getUpdatedAt() {
@@ -32,8 +38,12 @@ public class Product {
         return createdAt;
     }
 
-    public void setBarcode(int barcode) {
+    public void setBarcode(String barcode) {
         this.barcode = barcode;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
     }
 
     public void setId(String id) {
@@ -48,9 +58,9 @@ public class Product {
         this.description = description;
     }
 
-    public void setCategoryId(int categoryId) {
-        this.categoryId = categoryId;
-    }
+    //public void setCategoryId(int categoryId) {
+    //    this.categoryId = categoryId;
+    //}
 
     public void setUserId(String userId) {
         this.userId = userId;

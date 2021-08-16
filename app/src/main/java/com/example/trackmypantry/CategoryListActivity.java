@@ -18,13 +18,13 @@ import android.widget.Toast;
 
 import com.example.trackmypantry.Adapter.CategoryListAdapter;
 import com.example.trackmypantry.DataType.Category;
-import com.example.trackmypantry.ViewModel.MainActivityViewModel;
+import com.example.trackmypantry.ViewModel.CategoryListViewModel;
 
 import java.util.List;
 
 public class CategoryListActivity extends AppCompatActivity implements CategoryListAdapter.HandleCategoryClick {
 
-    public MainActivityViewModel viewModel;
+    public CategoryListViewModel viewModel;
     public RecyclerView recyclerView;
     public CategoryListAdapter categoryListAdapter;
     public TextView noCategoryTextView;
@@ -58,7 +58,7 @@ public class CategoryListActivity extends AppCompatActivity implements CategoryL
     }
 
     private void initViewModel(){
-        viewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
+        viewModel = new ViewModelProvider(this).get(CategoryListViewModel.class);
         viewModel.getListOfCategoriesObserver().observe(this, new Observer<List<Category>>() {
             @Override
             public void onChanged(List<Category> categories) {
@@ -99,7 +99,6 @@ public class CategoryListActivity extends AppCompatActivity implements CategoryL
                     Toast.makeText(CategoryListActivity.this, "Enter category name", Toast.LENGTH_SHORT).show();
                     return;
                 }
-
                 if(isForEdit){
                     categoryForEdit.categoryName = name;
                     viewModel.updateCategory(categoryForEdit);

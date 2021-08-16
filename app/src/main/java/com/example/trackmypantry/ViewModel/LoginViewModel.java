@@ -57,14 +57,11 @@ public class LoginViewModel extends AndroidViewModel {
                 SharedPreferences.Editor editor = pref.edit();
                 editor.putString("ACCESS_TOKEN", accessToken.getAccessToken());
                 editor.commit();
-                Log.i("mytag", "response");
-
             }
             @Override
             public void onFailure(Call<AccessToken> call, Throwable t) {
                 //TODO: Gestione failure
                 accessToken = null;
-                Log.i("mytag", "failure");
             }
         });
 

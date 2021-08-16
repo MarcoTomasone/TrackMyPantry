@@ -3,8 +3,7 @@
     package="com.example.trackmypantry">
 
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.INTERNET"/>
-
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -13,11 +12,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TrackMyPantry">
-        <activity android:name=".LoginActivity"></activity>
+        <activity android:name=".SearchProductsActivity"></activity>
+        <activity android:name=".LoginActivity" />
         <activity
             android:name=".ProductListActivity"
-            android:label="@string/title_activity_product_list">
-        </activity>
+            android:label="@string/title_activity_product_list"></activity>
         <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

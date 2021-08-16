@@ -1,46 +1,54 @@
 package com.example.trackmypantry.ViewModel;
 
 import android.app.Application;
-import android.content.SharedPreferences;
 import android.util.Log;
 
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.trackmypantry.DataBase.AppDataBase;
-import com.example.trackmypantry.DataType.Category;
+import com.example.trackmypantry.DataType.GetProductSchema;
 import com.example.trackmypantry.DataType.Product;
-import com.example.trackmypantry.Network.APIService;
-import com.example.trackmypantry.Network.RetroInstance;
 
 import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
-import static android.content.Context.MODE_PRIVATE;
 
 public class ProductListActivityViewModel extends AndroidViewModel {
 
     private MutableLiveData<List<Product>> listOfProducts;
+    private MutableLiveData<GetProductSchema> searchResponse;
     private ProductListRepository  productListRepository;
 
     public ProductListActivityViewModel (Application application) {
         super(application);
         listOfProducts = new MutableLiveData<>();
+        searchResponse = new MutableLiveData<>();
         productListRepository = new ProductListRepository(application);
+        productListRepository.getAllProductsList();
+        Log.i("mytag", "AOOOOOOO");
     }
-    //Observer for the liveData, so for the categories you have
+    //Observer for the liveData, so for products you have
     public MutableLiveData<List<Product>> getProductListObserver(){
-        return listOfProducts;
+        return productListRepository.getListOfProducts();
     }
 
-    public  void getAllItemsList(int categoryId){
-        productListRepository.getAllItemsList(categoryId);
+    //Observer for the response liveData
+    public MutableLiveData<GetProductSchema> getSearchObserver(){
+        return productListRepository.getSearchResults();
     }
-    public void getProduct(String barcode) {
-      productListRepository.getProductsByBarcode(barcode);
+
+
+    /*public  void getAllItemsList(int categoryId){
+        productListRepository.getAllItemsList(categoryId);
+    }*/
+
+    //TODO: Rifarla con i catid come sopra
+    public  void getAllItemsList(){
+        productListRepository.getAllProductsList();
+    }
+
+    public void getProductByBarcode(String barcode)  {
+        productListRepository.getProductsByBarcode(barcode);
+        //searchResponse.postValue(listOfProductsSearched);
+        //Log.e("INVIEWMODEL", listOfProductsSearched.getProducts().get(0).getDescription());
     }
 
     public void insertProduct(Product product){

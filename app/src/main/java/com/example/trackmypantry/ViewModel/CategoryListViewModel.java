@@ -10,12 +10,12 @@ import com.example.trackmypantry.DataType.Category;
 
 import java.util.List;
 
-public class MainActivityViewModel extends AndroidViewModel {
+public class CategoryListViewModel extends AndroidViewModel {
 
     private MutableLiveData<List<Category>> listOfCategories;
     private AppDataBase appDataBase;
 
-    public MainActivityViewModel(Application application){
+    public CategoryListViewModel(Application application){
         super(application);
         listOfCategories = new MutableLiveData<>();
         appDataBase = AppDataBase.getDataBaseInstance(getApplication().getApplicationContext());

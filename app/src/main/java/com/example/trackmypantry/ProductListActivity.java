@@ -2,13 +2,18 @@ package com.example.trackmypantry;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -17,9 +22,11 @@ import android.widget.Toast;
 
 import com.example.trackmypantry.Adapter.ProductListAdapter;
 import com.example.trackmypantry.DataType.Category;
+import com.example.trackmypantry.DataType.GetProductSchema;
 import com.example.trackmypantry.DataType.Product;
 import com.example.trackmypantry.ViewModel.ProductListActivityViewModel;
 
+import java.io.Serializable;
 import java.util.List;
 
 public class ProductListActivity extends AppCompatActivity implements ProductListAdapter.HandleProductClick {
@@ -33,69 +40,33 @@ public class ProductListActivity extends AppCompatActivity implements ProductLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_list);
+
         currentCategory = new Category();
         currentCategory.categoryId = getIntent().getIntExtra("category_id", 0 );
         currentCategory.categoryName = getIntent().getStringExtra("category_name");
         getSupportActionBar().setTitle(currentCategory.categoryName);
+
         ImageView searchButton = findViewById(R.id.searchForProductImageView);
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showSearchProductDialog();
+                Intent intent = new Intent(ProductListActivity.this, SearchProductsActivity.class);
+                startActivity(intent);
             }
         });
-        //TODO: if all works eliminate this comments
-        /*final EditText addNewProduct = findViewById(R.id.addNewProduct);
-        ImageView saveButton = findViewById(R.id.saveButton);
-        saveButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String barcode = addNewProduct.getText().toString();
-                if (TextUtils.isEmpty(barcode)) {
-                    Toast.makeText(ProductListActivity.this, "Insert Product Name", Toast.LENGTH_LONG).show();
-                    return;
-                }
-                if(productToUpdate == null)
-                    saveNewProduct(barcode);
-                else
-                    updateProduct(barcode);
-            }
-        }); */
 
-        initRecyclerView();
         initViewModel();
-        viewModel.getAllItemsList(currentCategory.categoryId);
+        initRecyclerView();
+        //viewModel.getAllItemsList(currentCategory.categoryId);
     }
 
-    private void showSearchProductDialog() {
-        AlertDialog dialogBuilder = new AlertDialog.Builder(this).create();
-        View dialogView = getLayoutInflater().inflate(R.layout.search_product_dialog, null);
-        EditText enterCategoryInput = dialogView.findViewById(R.id.enterBarcode);
-        TextView searchButton = dialogView.findViewById(R.id.search_button);
-        TextView cancelButton = dialogView.findViewById(R.id.cancelButton);
 
-        cancelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialogBuilder.dismiss();
-            }
-        });
 
-        searchButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String barcode = enterCategoryInput.getText().toString();
-                if(TextUtils.isEmpty(barcode)) {
-                    Toast.makeText(ProductListActivity.this, "Enter Product Barcode! ", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                viewModel.getProduct(barcode);
-                //TODO: chiama il fragment con la recyclerview
-                dialogBuilder.dismiss();
-            }
-        });
-        dialogBuilder.setView(dialogView);
-        dialogBuilder.show();
+    public void initRecyclerView(){
+        recyclerView = findViewById(R.id.recyclerViewProduct);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        productListAdapter = new ProductListAdapter(this, this);
+        recyclerView.setAdapter(productListAdapter);
     }
 
     public void initViewModel(){
@@ -114,21 +85,6 @@ public class ProductListActivity extends AppCompatActivity implements ProductLis
                 }
             }
         });
-    }
-
-    public void initRecyclerView(){
-        recyclerView = findViewById(R.id.recyclerViewProduct);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        productListAdapter = new ProductListAdapter(this, this);
-        recyclerView.setAdapter(productListAdapter);
-    }
-
-    public void saveNewProduct(String barcode){
-/* TODO: if all work eliminate this
-        viewModel.getProduct(barcode);
-        ((EditText) findViewById(R.id.addNewProduct)).setText("");
-*/
-
     }
 
     @Override
