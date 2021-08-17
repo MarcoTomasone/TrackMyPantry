@@ -19,7 +19,7 @@ public class Product {
     private boolean test;
     private String createdAt;
     private String updatedAt;
-   // private int categoryId;
+    private int categoryId;
 
     public String getBarcode() { return barcode; }
     public String getId() { return id; }
@@ -28,7 +28,7 @@ public class Product {
 
     public String getImg() { return img; }
 
-    //public int getCategoryId() { return categoryId; }
+    public int getCategoryId() { return categoryId; }
     public String getUserId() { return userId; }
     public boolean getTest() { return test; }
     public String getUpdatedAt() {
@@ -58,9 +58,9 @@ public class Product {
         this.description = description;
     }
 
-    //public void setCategoryId(int categoryId) {
-    //    this.categoryId = categoryId;
-    //}
+    public void setCategoryId(int categoryId) {
+       this.categoryId = categoryId;
+    }
 
     public void setUserId(String userId) {
         this.userId = userId;

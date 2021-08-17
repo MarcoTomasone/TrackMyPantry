@@ -45,12 +45,14 @@ public class ProductListActivity extends AppCompatActivity implements ProductLis
         currentCategory.categoryId = getIntent().getIntExtra("category_id", 0 );
         currentCategory.categoryName = getIntent().getStringExtra("category_name");
         getSupportActionBar().setTitle(currentCategory.categoryName);
-
+        Log.i("CAT", currentCategory.categoryName + currentCategory.categoryId);
         ImageView searchButton = findViewById(R.id.searchForProductImageView);
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ProductListActivity.this, SearchProductsActivity.class);
+                intent.putExtra("category_id", currentCategory.categoryId);
+                intent.putExtra("category_name", currentCategory.categoryName);
                 startActivity(intent);
                 finish();
             }
@@ -86,6 +88,7 @@ public class ProductListActivity extends AppCompatActivity implements ProductLis
                 }
             }
         });
+        viewModel.getAllProductsForCategory(currentCategory.categoryId);
     }
 
     @Override

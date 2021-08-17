@@ -6,6 +6,7 @@ import android.util.Log;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.trackmypantry.DataType.Category;
 import com.example.trackmypantry.DataType.CreateProductSchema;
 import com.example.trackmypantry.DataType.CreateVoteSchema;
 import com.example.trackmypantry.DataType.GetProductSchema;
@@ -19,12 +20,13 @@ public class ProductListActivityViewModel extends AndroidViewModel {
     private MutableLiveData<GetProductSchema> searchResponse;
     private ProductListRepository  productListRepository;
 
+
     public ProductListActivityViewModel (Application application) {
         super(application);
         listOfProducts = new MutableLiveData<>();
         searchResponse = new MutableLiveData<>();
         productListRepository = new ProductListRepository(application, getApplication().getApplicationContext());
-        productListRepository.getAllProductsList();
+
     }
     //Observer for the liveData, so for products you have
     public MutableLiveData<List<Product>> getProductListObserver(){
@@ -36,22 +38,18 @@ public class ProductListActivityViewModel extends AndroidViewModel {
         return productListRepository.getSearchResults();
     }
 
-
-    /*public  void getAllItemsList(int categoryId){
-        productListRepository.getAllItemsList(categoryId);
-    }*/
-
-    //TODO: Rifarla con i catid come sopra
-    public  void getAllItemsList(){
-        productListRepository.getAllProductsList();
+    public void getAllProductsForCategory(int categoryId){
+        productListRepository.getAllProductsList(categoryId);
     }
 
     public void getProductByBarcode(String barcode)  {
         productListRepository.getProductsByBarcode(barcode);
     }
-    public void createNewProduct(CreateProductSchema productSchema){
-        productListRepository.createNewProduct(productSchema);
+
+    public void createNewProduct(CreateProductSchema productSchema, int categoryId){
+        productListRepository.createNewProduct(productSchema, categoryId);
     }
+
     public void rateProduct(CreateVoteSchema voteSchema){
         productListRepository.rateProduct(voteSchema);
     }

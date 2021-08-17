@@ -47,8 +47,8 @@ public class ProductListRepository {
     public MutableLiveData<List<Product>> getListOfProducts() {return listOfProducts;}
 
     //Function to get all the categories in the DataBase and post them into the liveData to populate RecyclerView on Load
-    public void getAllProductsList(){
-        List<Product> productsList = appDataBase.pantryDao().getAllProductsList();
+    public void getAllProductsList(int categoryId){
+        List<Product> productsList = appDataBase.pantryDao().getAllProductsList(categoryId);
         if(productsList.size() > 0)
             listOfProducts.postValue(productsList);
         else
@@ -76,13 +76,14 @@ public class ProductListRepository {
         });
 
     }
-    public void createNewProduct(CreateProductSchema productSchema) {
+    public void createNewProduct(CreateProductSchema productSchema, int categoryId) {
         APIService apiService = RetroInstance.getRetroClient().create(APIService.class);
         Call<Product> call = apiService.insertNewProduct(productSchema, "Bearer " + pref.getString("ACCESS_TOKEN",""));
         call.enqueue(new Callback<Product>() {
             @Override
             public void onResponse(Call<Product> call, Response<Product> response) {
                 Product product = (Product) response.body();
+                product.setCategoryId(categoryId);
                 insertProduct(product);
             }
             @Override
@@ -110,19 +111,19 @@ public class ProductListRepository {
     //TODO: Check if the product exist already else add quantity
     void insertProduct(Product product){
         appDataBase.pantryDao().insertProduct(product);
-        getAllProductsList();
+        getAllProductsList(product.getCategoryId());
        // getAllItemsList(product.getCategoryId()); //update instantly
     }
 
     public void updateProduct(Product product){
         appDataBase.pantryDao().updateProduct(product);
-        getAllProductsList();
+        getAllProductsList(product.getCategoryId());
         //getAllItemsList(product.getCategoryId()); //update instantly
     }
 
     public void deleteProduct(Product product){
         appDataBase.pantryDao().deleteProduct(product);
-        getAllProductsList();
+        getAllProductsList(product.getCategoryId());
         //getAllItemsList(product.getCategoryId()); //update instantly
     }
 }

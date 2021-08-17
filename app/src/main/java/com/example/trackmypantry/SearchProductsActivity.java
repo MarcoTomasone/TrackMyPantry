@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import com.example.trackmypantry.Adapter.CategoryListAdapter;
 import com.example.trackmypantry.Adapter.SearchProductsAdapter;
+import com.example.trackmypantry.DataType.Category;
 import com.example.trackmypantry.DataType.CreateProductSchema;
 import com.example.trackmypantry.DataType.CreateVoteSchema;
 import com.example.trackmypantry.DataType.GetProductSchema;
@@ -36,10 +37,17 @@ public class SearchProductsActivity extends AppCompatActivity implements SearchP
     private SharedPreferences pref;
     private View dialogView;
     private AlertDialog dialogBuilder;
+    private Category currentCategory;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_products);
+
+        currentCategory = new Category();
+        currentCategory.categoryId = getIntent().getIntExtra("category_id", 0 );
+        currentCategory.categoryName = getIntent().getStringExtra("category_name");
+
+        getSupportActionBar().setTitle(currentCategory.categoryName);
 
         pref = getApplication().getApplicationContext().getSharedPreferences("MY_PREFERENCES", MODE_PRIVATE);
         insertNewProductButton = findViewById(R.id.buttonInsertNewProduct);
@@ -64,7 +72,7 @@ public class SearchProductsActivity extends AppCompatActivity implements SearchP
     }
 
     private void initViewModel() {
-        viewModel = new ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory.getInstance(getApplication())).get(ProductListActivityViewModel.class);
+        viewModel = new ViewModelProvider(this).get(ProductListActivityViewModel.class);
         viewModel.getSearchObserver().observe(this, new Observer<GetProductSchema>() {
             @Override
             public void onChanged(GetProductSchema getProductSchema) {
@@ -111,9 +119,11 @@ public class SearchProductsActivity extends AppCompatActivity implements SearchP
                     return;
                 }
                 CreateProductSchema newProduct = new CreateProductSchema(pref.getString("SESSION_TOKEN", null), name, description, barcode, false);
-                viewModel.createNewProduct(newProduct);
+                viewModel.createNewProduct(newProduct, currentCategory.categoryId);
                 dialogBuilder.dismiss();
                 Intent intent = new Intent(SearchProductsActivity.this, ProductListActivity.class);
+                intent.putExtra("category_id", currentCategory.categoryId);
+                intent.putExtra("category_name", currentCategory.categoryName);
                 startActivity(intent);
                 finish();
             }
@@ -157,16 +167,16 @@ public class SearchProductsActivity extends AppCompatActivity implements SearchP
         dialogView = getLayoutInflater().inflate(R.layout.dialog_rating, null);
         RatingBar ratingBar = dialogView.findViewById(R.id.ratingBar);
         TextView rateButton = dialogView.findViewById(R.id.rate_button);
-        Log.i("Ho", "HO SCHIACCIATO DA SOLOOO 1");
         rateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int rating = ratingBar.getNumStars();
+                int rating = (int) ratingBar.getRating();
                 viewModel.rateProduct(new CreateVoteSchema(pref.getString("SESSION_TOKEN", null), rating, product.getId()));
-                Log.i("Ho", "HO SCHIACCIATO DA SOLOOO 2");
                 dialogBuilder.dismiss();
                 viewModel.insertProduct(product);
                 Intent intent = new Intent(SearchProductsActivity.this, ProductListActivity.class);
+                intent.putExtra("category_id", currentCategory.categoryId);
+                intent.putExtra("category_name", currentCategory.categoryName);
                 startActivity(intent);
                 finish();
             }
@@ -177,6 +187,7 @@ public class SearchProductsActivity extends AppCompatActivity implements SearchP
 
     @Override
     public void itemClick(Product product) {
+        product.setCategoryId(currentCategory.categoryId);
         showRatingDialog(product);
     }
 

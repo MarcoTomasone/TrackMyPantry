@@ -25,10 +25,11 @@ public interface PantryDao {
     @Delete
     void deleteCategory(Category category);
 
-    //@Query("Select * from Product where categoryId = :catId")
-    //List<Product> getAllItemsList(int catId);
-    @Query("Select * from Product")
-    List<Product> getAllProductsList();
+    @Query("Select * from Product where categoryId = :catId")
+    List<Product> getAllProductsList(int catId);
+    //@Query("Select * from Product")
+    //List<Product> getAllProductsList();
+
     @Insert
     void insertProduct(Product product);
 
