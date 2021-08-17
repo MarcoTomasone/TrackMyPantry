@@ -7,6 +7,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.trackmypantry.DataType.CreateProductSchema;
+import com.example.trackmypantry.DataType.CreateVoteSchema;
 import com.example.trackmypantry.DataType.GetProductSchema;
 import com.example.trackmypantry.DataType.Product;
 
@@ -24,7 +25,6 @@ public class ProductListActivityViewModel extends AndroidViewModel {
         searchResponse = new MutableLiveData<>();
         productListRepository = new ProductListRepository(application, getApplication().getApplicationContext());
         productListRepository.getAllProductsList();
-        Log.i("mytag", "AOOOOOOO");
     }
     //Observer for the liveData, so for products you have
     public MutableLiveData<List<Product>> getProductListObserver(){
@@ -51,6 +51,9 @@ public class ProductListActivityViewModel extends AndroidViewModel {
     }
     public void createNewProduct(CreateProductSchema productSchema){
         productListRepository.createNewProduct(productSchema);
+    }
+    public void rateProduct(CreateVoteSchema voteSchema){
+        productListRepository.rateProduct(voteSchema);
     }
 
     public void insertProduct(Product product){

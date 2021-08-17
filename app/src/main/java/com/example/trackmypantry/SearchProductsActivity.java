@@ -11,15 +11,18 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.trackmypantry.Adapter.CategoryListAdapter;
 import com.example.trackmypantry.Adapter.SearchProductsAdapter;
 import com.example.trackmypantry.DataType.CreateProductSchema;
+import com.example.trackmypantry.DataType.CreateVoteSchema;
 import com.example.trackmypantry.DataType.GetProductSchema;
 import com.example.trackmypantry.DataType.Product;
 import com.example.trackmypantry.ViewModel.ProductListActivityViewModel;
@@ -31,6 +34,8 @@ public class SearchProductsActivity extends AppCompatActivity implements SearchP
     private Button insertNewProductButton;
     private String barcode;
     private SharedPreferences pref;
+    private View dialogView;
+    private AlertDialog dialogBuilder;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,8 +81,8 @@ public class SearchProductsActivity extends AppCompatActivity implements SearchP
     }
 
     private void showInsertNewProductDialog() {
-        AlertDialog dialogBuilder = new AlertDialog.Builder(this).create();
-        View dialogView = getLayoutInflater().inflate(R.layout.add_product_dialog, null);
+        dialogBuilder = new AlertDialog.Builder(this).create();
+        dialogView = getLayoutInflater().inflate(R.layout.add_product_dialog, null);
 
         EditText enterName = dialogView.findViewById(R.id.enterNameInput);
         EditText enterDescription = dialogView.findViewById(R.id.enterDescriptionInput);
@@ -117,8 +122,8 @@ public class SearchProductsActivity extends AppCompatActivity implements SearchP
         dialogBuilder.show();
     }
     private void showSearchProductDialog() {
-        AlertDialog dialogBuilder = new AlertDialog.Builder(this).create();
-        View dialogView = getLayoutInflater().inflate(R.layout.search_product_dialog, null);
+        dialogBuilder = new AlertDialog.Builder(this).create();
+        dialogView = getLayoutInflater().inflate(R.layout.search_product_dialog, null);
         EditText enterCategoryInput = dialogView.findViewById(R.id.enterBarcode);
 
         TextView searchButton = dialogView.findViewById(R.id.search_button);
@@ -147,13 +152,34 @@ public class SearchProductsActivity extends AppCompatActivity implements SearchP
         dialogBuilder.show();
     }
 
+    private void showRatingDialog(Product product) {
+        dialogBuilder = new AlertDialog.Builder(this).create();
+        dialogView = getLayoutInflater().inflate(R.layout.dialog_rating, null);
+        RatingBar ratingBar = dialogView.findViewById(R.id.ratingBar);
+        TextView rateButton = dialogView.findViewById(R.id.rate_button);
+        Log.i("Ho", "HO SCHIACCIATO DA SOLOOO 1");
+        rateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int rating = ratingBar.getNumStars();
+                viewModel.rateProduct(new CreateVoteSchema(pref.getString("SESSION_TOKEN", null), rating, product.getId()));
+                Log.i("Ho", "HO SCHIACCIATO DA SOLOOO 2");
+                dialogBuilder.dismiss();
+                viewModel.insertProduct(product);
+                Intent intent = new Intent(SearchProductsActivity.this, ProductListActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+        dialogBuilder.setView(dialogView);
+        dialogBuilder.show();
+    }
+
     @Override
     public void itemClick(Product product) {
-        viewModel.insertProduct(product);
-        Intent intent = new Intent(SearchProductsActivity.this, ProductListActivity.class);
-        startActivity(intent);
-        finish();
+        showRatingDialog(product);
     }
+
 
     @Override
     public void deleteClick(Product product) {
@@ -163,5 +189,11 @@ public class SearchProductsActivity extends AppCompatActivity implements SearchP
     @Override
     public void editClick(Product product) {
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        dialogBuilder.dismiss();
     }
 }

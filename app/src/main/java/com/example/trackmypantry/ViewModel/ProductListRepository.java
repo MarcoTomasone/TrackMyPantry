@@ -10,6 +10,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.example.trackmypantry.DataBase.AppDataBase;
 import com.example.trackmypantry.DataBase.PantryDao;
 import com.example.trackmypantry.DataType.CreateProductSchema;
+import com.example.trackmypantry.DataType.CreateVoteSchema;
 import com.example.trackmypantry.DataType.GetProductSchema;
 import com.example.trackmypantry.DataType.Product;
 import com.example.trackmypantry.Network.APIService;
@@ -91,6 +92,22 @@ public class ProductListRepository {
         });
     }
 
+    public void rateProduct(CreateVoteSchema voteSchema) {
+        APIService apiService = RetroInstance.getRetroClient().create(APIService.class);
+        Call<Void> call = apiService.insertVote(voteSchema, "Bearer " + pref.getString("ACCESS_TOKEN",""));
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                Log.i("RETROFIT", "TUTTO OK");
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Log.i("RETROFIT", "OK IL CAZZO ");
+            }
+        });
+    }
+    //TODO: Check if the product exist already else add quantity
     void insertProduct(Product product){
         appDataBase.pantryDao().insertProduct(product);
         getAllProductsList();
@@ -108,8 +125,6 @@ public class ProductListRepository {
         getAllProductsList();
         //getAllItemsList(product.getCategoryId()); //update instantly
     }
-
-
 }
 
 

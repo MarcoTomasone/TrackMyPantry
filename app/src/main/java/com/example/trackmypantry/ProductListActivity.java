@@ -52,6 +52,7 @@ public class ProductListActivity extends AppCompatActivity implements ProductLis
             public void onClick(View v) {
                 Intent intent = new Intent(ProductListActivity.this, SearchProductsActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
 
