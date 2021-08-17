@@ -2,6 +2,7 @@ package com.example.trackmypantry.Network;
 
 import com.example.trackmypantry.DataType.AccessToken;
 import com.example.trackmypantry.DataType.Authentication;
+import com.example.trackmypantry.DataType.CreateProductSchema;
 import com.example.trackmypantry.DataType.GetProductSchema;
 import com.example.trackmypantry.DataType.LoginData;
 import com.example.trackmypantry.DataType.Product;
@@ -26,6 +27,10 @@ public interface APIService {
     @Headers("Content-Type: application/json")
     @POST("auth/login")
     Call<AccessToken> loginMethod(@Body LoginData loginData);
+
+    @Headers("Content-Type: application/json")
+    @POST("products")
+    Call<Product> insertNewProduct(@Body CreateProductSchema product, @Header("Authorization") String accessToken);
 
     @Headers("Content-Type: application/json")
     @GET("products")

@@ -5,16 +5,38 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".SearchProductsActivity">
-
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="100sp"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="#F1FEFF"
+        android:id="@+id/header"
+        >
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Choose one of the products below or add a new one"
+        android:textSize="17dp"
+        android:textStyle="bold"
+        />
+        <Button
+            android:id="@+id/buttonInsertNewProduct"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerInParent="true"
+            android:text="Add New Product"
+            />
+    </RelativeLayout>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewSearchProducts"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="10dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="104dp"
         android:paddingBottom="50dp"
-        />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/header" />
 
     <TextView android:id="@+id/searchProductTextView"
         android:layout_width="wrap_content"

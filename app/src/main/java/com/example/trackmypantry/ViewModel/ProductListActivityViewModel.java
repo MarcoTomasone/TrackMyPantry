@@ -6,6 +6,7 @@ import android.util.Log;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.trackmypantry.DataType.CreateProductSchema;
 import com.example.trackmypantry.DataType.GetProductSchema;
 import com.example.trackmypantry.DataType.Product;
 
@@ -21,7 +22,7 @@ public class ProductListActivityViewModel extends AndroidViewModel {
         super(application);
         listOfProducts = new MutableLiveData<>();
         searchResponse = new MutableLiveData<>();
-        productListRepository = new ProductListRepository(application);
+        productListRepository = new ProductListRepository(application, getApplication().getApplicationContext());
         productListRepository.getAllProductsList();
         Log.i("mytag", "AOOOOOOO");
     }
@@ -47,8 +48,9 @@ public class ProductListActivityViewModel extends AndroidViewModel {
 
     public void getProductByBarcode(String barcode)  {
         productListRepository.getProductsByBarcode(barcode);
-        //searchResponse.postValue(listOfProductsSearched);
-        //Log.e("INVIEWMODEL", listOfProductsSearched.getProducts().get(0).getDescription());
+    }
+    public void createNewProduct(CreateProductSchema productSchema){
+        productListRepository.createNewProduct(productSchema);
     }
 
     public void insertProduct(Product product){
