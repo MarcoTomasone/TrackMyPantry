@@ -55,14 +55,14 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
             public void onClick(View v) {
                 clickListener.editClick(productList.get(position));
             }
-        });
+        });*/
 
         holder.deleteProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 clickListener.deleteClick(productList.get(position));
             }
-        });*/
+        });
     }
 
     @Override
@@ -76,12 +76,13 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
     public class MyViewHolder extends RecyclerView.ViewHolder{
         TextView tvProductName;
         TextView tvProductDescription;
+        ImageView deleteProduct;
 
         public MyViewHolder(View view){
             super(view);
             tvProductName = view.findViewById(R.id.textViewProductName);
             tvProductDescription = view.findViewById(R.id.textViewProductDescription);
-
+            deleteProduct = view.findViewById(R.id.deleteProduct);
         }
     }
 

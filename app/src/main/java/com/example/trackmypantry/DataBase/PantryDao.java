@@ -39,5 +39,6 @@ public interface PantryDao {
     @Delete
     void deleteProduct(Product product);
 
-
+    @Query("Delete from Product where categoryId = :catId")
+    void deleteAllProductsForCategory(int catId);
 }

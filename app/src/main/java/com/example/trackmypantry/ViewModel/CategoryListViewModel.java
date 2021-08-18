@@ -45,6 +45,7 @@ public class CategoryListViewModel extends AndroidViewModel {
         getAllCategories(); //update instantly
     }
     public void deleteCategory(Category category){
+        appDataBase.pantryDao().deleteAllProductsForCategory(category.categoryId);
         appDataBase.pantryDao().deleteCategory(category);
         getAllCategories(); //update instantly
     }

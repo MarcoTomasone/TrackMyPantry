@@ -34,7 +34,7 @@ public class SearchProductsAdapter extends RecyclerView.Adapter<SearchProductsAd
     @NonNull
     @Override
     public SearchProductsAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.product_row, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.product_searched_row, parent, false);
         return new MyViewHolder(view);
     }
 
@@ -78,8 +78,8 @@ public class SearchProductsAdapter extends RecyclerView.Adapter<SearchProductsAd
 
         public MyViewHolder(View view){
             super(view);
-            tvProductName = view.findViewById(R.id.textViewProductName);
-            tvProductDescription = view.findViewById(R.id.textViewProductDescription);
+            tvProductName = view.findViewById(R.id.textViewSearchedProductName);
+            tvProductDescription = view.findViewById(R.id.textViewSearchedProductDescription);
 
         }
     }

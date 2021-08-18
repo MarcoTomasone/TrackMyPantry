@@ -22,7 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <TextView android:id="@+id/textViewProductName"
+            <TextView android:id="@+id/textViewSearchedProductName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="parent"
@@ -33,24 +33,17 @@
                 android:textSize="22sp"
                 android:textColor="@color/black"/>
 
-            <TextView android:id="@+id/textViewProductDescription"
+            <TextView android:id="@+id/textViewSearchedProductDescription"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textViewProductName"
+                app:layout_constraintTop_toBottomOf="@+id/textViewSearchedProductName"
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:text="null"
                 android:textStyle="italic"
                 android:textSize="16sp"
                 android:textColor="@color/black"/>
-            <ImageView
-                android:id="@+id/deleteProduct"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_delete_black_24dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                />
+
             <!--TODO: Add image! -->
 
         </androidx.constraintlayout.widget.ConstraintLayout>
