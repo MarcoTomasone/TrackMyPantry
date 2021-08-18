@@ -2,9 +2,14 @@ package com.example.trackmypantry;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+
+import java.util.Calendar;
+import java.util.Locale;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -12,15 +17,28 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+        int oneWeekAsSec = 604800;
+        SharedPreferences pref = getApplication().getApplicationContext().getSharedPreferences("MY_PREFERENCES", Context.MODE_PRIVATE);
+        long currentDate = Calendar.getInstance(Locale.getDefault()).getTimeInMillis() / 1000;
+        Long savedAccessTokenData = Long.valueOf(pref.getString("DATA", String.valueOf(-1)));
+        Intent intent = null;
+        if(savedAccessTokenData != -1) {
+            if (currentDate < savedAccessTokenData + oneWeekAsSec)
+                intent = new Intent(SplashActivity.this, CategoryListActivity.class);
+        }
+        else
+                intent = new Intent(SplashActivity.this, LoginActivity.class);
 
+        Intent finalIntent = intent;
         new Handler().postDelayed(new Runnable (){
             @Override
             public void run() {
-                Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
-                startActivity(intent);
+                startActivity(finalIntent);
                 finish(); //else you can go back to the splash activity
             }
         }, 2000);
+
+
     }
 
 

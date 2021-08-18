@@ -63,11 +63,15 @@ public class ProductListRepository {
         call.enqueue(new Callback<GetProductSchema>() {
             @Override
             public void onResponse(Call<GetProductSchema> call, Response<GetProductSchema> response) {
-               searchResponse.postValue(new GetProductSchema(response.body().getProducts(),response.body().getToken()));
-                SharedPreferences pref = context.getApplicationContext().getSharedPreferences("MY_PREFERENCES", Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = pref.edit();
-                editor.putString("SESSION_TOKEN", response.body().getToken());
-                editor.commit();
+                if (response.isSuccessful()) {
+                    searchResponse.postValue(new GetProductSchema(response.body().getProducts(),response.body().getToken()));
+                    SharedPreferences pref = context.getApplicationContext().getSharedPreferences("MY_PREFERENCES", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = pref.edit();
+                    editor.putString("SESSION_TOKEN", response.body().getToken());
+                    editor.commit();
+                } else {
+                    Log.e("ERROR", "Error try again");
+                }
             }
             @Override
             public void onFailure(Call<GetProductSchema> call, Throwable t) {
@@ -99,7 +103,10 @@ public class ProductListRepository {
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
-                Log.i("RETROFIT", "TUTTO OK");
+                if(response.isSuccessful())
+                    Log.i("Retrofit", "Tutto ok");
+                else
+                    Log.i("Retrofit", "NON E OK");
             }
 
             @Override

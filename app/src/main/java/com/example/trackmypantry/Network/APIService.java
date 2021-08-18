@@ -26,6 +26,10 @@ public interface APIService {
     Call<Authentication> registrationMethod(@Body RegisterData registerData);
 
     @Headers("Content-Type: application/json")
+    @GET("users/me")
+    Call<Authentication> getUserData(@Header("Authorization") String accessToken);
+
+    @Headers("Content-Type: application/json")
     @POST("auth/login")
     Call<AccessToken> loginMethod(@Body LoginData loginData);
 

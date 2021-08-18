@@ -58,24 +58,13 @@ public class LoginActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!isRegister){
-                    String email = emailTV.getText().toString();
-                    String password = passwordTV.getText().toString();
-                    if(viewModel.loginCall(new LoginData(email, password))) {
-                        Toast.makeText(LoginActivity.this, "Logged in Successfully!", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(LoginActivity.this, CategoryListActivity.class);
-                        startActivity(intent);
-                    }
-                    else
-                        Toast.makeText(LoginActivity.this, "Error! Try again", Toast.LENGTH_SHORT).show();
-                } else {
+                String email = emailTV.getText().toString();
+                String password = passwordTV.getText().toString();
+                if(!isRegister)
+                    viewModel.loginCall(new LoginData(email, password), LoginActivity.this);
+                 else {
                     String name = nameTV.getText().toString();
-                    String email = emailTV.getText().toString();
-                    String password = passwordTV.getText().toString();
-                    if(viewModel.registerCall(new RegisterData(name, email, password)))
-                        Toast.makeText(LoginActivity.this, "You have registered Successfully!", Toast.LENGTH_SHORT).show();
-                    else
-                        Toast.makeText(LoginActivity.this, "Error! Try again with new credentials", Toast.LENGTH_SHORT).show();
+                    viewModel.registerCall(new RegisterData(name, email, password), LoginActivity.this);
                 }
             }
         });
