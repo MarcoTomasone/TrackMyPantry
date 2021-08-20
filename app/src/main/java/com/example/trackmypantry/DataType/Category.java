@@ -12,4 +12,6 @@ public class Category {
     @ColumnInfo(name = "categoryName")
     public String categoryName;
 
+    public String userEmail;
+
 }

@@ -1,5 +1,6 @@
 package com.example.trackmypantry;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
@@ -9,12 +10,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.Image;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,6 +31,8 @@ import com.example.trackmypantry.DataType.CreateVoteSchema;
 import com.example.trackmypantry.DataType.GetProductSchema;
 import com.example.trackmypantry.DataType.Product;
 import com.example.trackmypantry.ViewModel.ProductListActivityViewModel;
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 
 public class SearchProductsActivity extends AppCompatActivity implements SearchProductsAdapter.HandleProductClick {
     private ProductListActivityViewModel viewModel;
@@ -134,10 +140,25 @@ public class SearchProductsActivity extends AppCompatActivity implements SearchP
     private void showSearchProductDialog() {
         dialogBuilder = new AlertDialog.Builder(this).create();
         dialogView = getLayoutInflater().inflate(R.layout.search_product_dialog, null);
-        EditText enterCategoryInput = dialogView.findViewById(R.id.enterBarcode);
 
+        EditText enterCategoryInput = dialogView.findViewById(R.id.enterBarcode);
+        ImageView camera = dialogView.findViewById(R.id.camera);
         TextView searchButton = dialogView.findViewById(R.id.search_button);
         TextView cancelButton = dialogView.findViewById(R.id.cancelButton);
+        camera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialogBuilder.dismiss();
+                IntentIntegrator intentIntegrator = new IntentIntegrator(SearchProductsActivity.this);
+                intentIntegrator.setCaptureActivity(ScanActivity.class);
+                intentIntegrator.setDesiredBarcodeFormats(intentIntegrator.ALL_CODE_TYPES);
+                intentIntegrator.setBeepEnabled(true);
+                intentIntegrator.setOrientationLocked(true);
+                intentIntegrator.setPrompt("For Flash use volume up Key");
+                intentIntegrator.initiateScan();
+            }
+        });
+
 
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -191,20 +212,25 @@ public class SearchProductsActivity extends AppCompatActivity implements SearchP
         showRatingDialog(product);
     }
 
-
-    @Override
-    public void deleteClick(Product product) {
-
-    }
-
-    @Override
-    public void editClick(Product product) {
-
-    }
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
         dialogBuilder.dismiss();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        IntentResult intentResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+        String ciao = intentResult.getContents();
+
+        if(intentResult.getContents() != null) {
+            viewModel.getProductByBarcode(intentResult.getContents());
+        }
+        else {
+            Toast.makeText(SearchProductsActivity.this, "You did not scan anything", Toast.LENGTH_SHORT).show();
+
+        }
+
     }
 }

@@ -66,7 +66,10 @@ public class LoginViewModel extends AndroidViewModel {
             public void onResponse(Call<AccessToken> call, Response<AccessToken> response) {
               if(response.isSuccessful()){
                     accessToken = (AccessToken) response.body();
-                    getAllUSerData();
+                      editor.putString("ACCESS_TOKEN", accessToken.getAccessToken());
+                      editor.putString("DATA", String.valueOf(Calendar.getInstance(Locale.getDefault()).getTimeInMillis()/1000));
+                      editor.putString("EMAIL", loginData.getEmail());
+                      editor.commit();
                     Toast.makeText(loginActivity.getApplicationContext(), "Logged in Successfully!", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(loginActivity.getApplicationContext(), CategoryListActivity.class);
                     loginActivity.startActivity(intent);
@@ -83,6 +86,7 @@ public class LoginViewModel extends AndroidViewModel {
             }
         });
     }
+    //Todo: evaluate if need this function or not
     public void getAllUSerData(){
         Call<Authentication> call = apiService.getUserData("Bearer " + accessToken.getAccessToken());
         call.enqueue(new Callback<Authentication>() {
@@ -91,11 +95,7 @@ public class LoginViewModel extends AndroidViewModel {
                 if (response.isSuccessful()) {
                     Authentication userData = new Authentication();
                     userData = (Authentication) response.body();
-                    editor.putString("ACCESS_TOKEN", accessToken.getAccessToken());
-                    editor.putString("DATA", String.valueOf(Calendar.getInstance(Locale.getDefault()).getTimeInMillis()/1000));
-                    editor.putString("USERNAME", userData.getUsername());
-                    editor.putString("EMAIL", userData.getEmail());
-                    editor.commit();
+
                 }
             }
             @Override

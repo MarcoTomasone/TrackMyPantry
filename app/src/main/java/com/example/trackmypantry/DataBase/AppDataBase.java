@@ -9,7 +9,7 @@ import androidx.room.RoomDatabase;
 import com.example.trackmypantry.DataType.Category;
 import com.example.trackmypantry.DataType.Product;
 
-@Database(entities = {Category.class, Product.class}, version = 6)
+@Database(entities = {Category.class, Product.class}, version = 9)
 public abstract class AppDataBase extends RoomDatabase {
     public abstract PantryDao pantryDao();
 

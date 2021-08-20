@@ -49,19 +49,6 @@ public class SearchProductsAdapter extends RecyclerView.Adapter<SearchProductsAd
             }
         });
 
-        /*holder.editProduct.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                clickListener.editClick(productList.get(position));
-            }
-        });
-
-        holder.deleteProduct.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                clickListener.deleteClick(productList.get(position));
-            }
-        });*/
     }
 
     @Override
@@ -86,7 +73,5 @@ public class SearchProductsAdapter extends RecyclerView.Adapter<SearchProductsAd
 
     public interface HandleProductClick {
         void itemClick(Product product);
-        void deleteClick(Product product);
-        void editClick(Product product);
     }
 }

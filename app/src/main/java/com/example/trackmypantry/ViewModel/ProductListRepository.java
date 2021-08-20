@@ -48,7 +48,7 @@ public class ProductListRepository {
 
     //Function to get all the categories in the DataBase and post them into the liveData to populate RecyclerView on Load
     public void getAllProductsList(int categoryId){
-        List<Product> productsList = appDataBase.pantryDao().getAllProductsList(categoryId);
+        List<Product> productsList = appDataBase.pantryDao().getAllProductsList(categoryId, pref.getString("EMAIL", null));
         if(productsList.size() > 0)
             listOfProducts.postValue(productsList);
         else
@@ -88,6 +88,7 @@ public class ProductListRepository {
             public void onResponse(Call<Product> call, Response<Product> response) {
                 Product product = (Product) response.body();
                 product.setCategoryId(categoryId);
+                product.setUserEmail(pref.getString("EMAIL", null));
                 insertProduct(product);
             }
             @Override
@@ -117,6 +118,7 @@ public class ProductListRepository {
     }
     //TODO: Check if the product exist already else add quantity
     void insertProduct(Product product){
+        product.setUserEmail(pref.getString("EMAIL", null));
         appDataBase.pantryDao().insertProduct(product);
         getAllProductsList(product.getCategoryId());
        // getAllItemsList(product.getCategoryId()); //update instantly

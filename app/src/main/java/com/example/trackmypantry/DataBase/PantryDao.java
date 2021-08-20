@@ -13,8 +13,8 @@ import java.util.List;
 
 @Dao
 public interface PantryDao {
-    @Query("Select * from Category")
-    List<Category> getAllCategories();
+    @Query("Select * from Category where userEmail= :email")
+    List<Category> getAllCategories(String email);
 
     @Insert
     void insertCategory(Category...categories);
@@ -25,10 +25,8 @@ public interface PantryDao {
     @Delete
     void deleteCategory(Category category);
 
-    @Query("Select * from Product where categoryId = :catId")
-    List<Product> getAllProductsList(int catId);
-    //@Query("Select * from Product")
-    //List<Product> getAllProductsList();
+    @Query("Select * from Product where categoryId = :catId and userEmail = :email")
+    List<Product> getAllProductsList(int catId, String email);
 
     @Insert
     void insertProduct(Product product);

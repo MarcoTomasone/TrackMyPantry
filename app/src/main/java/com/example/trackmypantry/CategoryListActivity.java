@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -29,6 +30,7 @@ public class CategoryListActivity extends AppCompatActivity implements CategoryL
     public CategoryListAdapter categoryListAdapter;
     public TextView noCategoryTextView;
     public Category categoryForEdit;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +51,17 @@ public class CategoryListActivity extends AppCompatActivity implements CategoryL
         });
         initViewModel();
         initRecyclerView();
+
+        //CODICE PER LA LOGOUT
+        Button logout = findViewById(R.id.logout);
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(CategoryListActivity.this, LoginActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 
     private void initRecyclerView(){
