@@ -1,19 +1,27 @@
 package com.example.trackmypantry;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.media.Image;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.provider.MediaStore;
 import android.text.TextUtils;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -34,6 +42,8 @@ import com.example.trackmypantry.ViewModel.ProductListActivityViewModel;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
+import java.io.ByteArrayOutputStream;
+
 public class SearchProductsActivity extends AppCompatActivity implements SearchProductsAdapter.HandleProductClick {
     private ProductListActivityViewModel viewModel;
     private RecyclerView recyclerView;
@@ -44,6 +54,8 @@ public class SearchProductsActivity extends AppCompatActivity implements SearchP
     private View dialogView;
     private AlertDialog dialogBuilder;
     private Category currentCategory;
+    private ImageView imageView;
+    private String base64 = null;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -102,6 +114,21 @@ public class SearchProductsActivity extends AppCompatActivity implements SearchP
         EditText enterDescription = dialogView.findViewById(R.id.enterDescriptionInput);
         TextView searchButton = dialogView.findViewById(R.id.insertButton);
         TextView cancelButton = dialogView.findViewById(R.id.cancelButtonAdd);
+        ImageView camera = dialogView.findViewById(R.id.new_product_camera);
+        imageView = dialogView.findViewById(R.id.new_product_image);
+
+        camera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (ContextCompat.checkSelfPermission(SearchProductsActivity.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(SearchProductsActivity.this, new String[]{
+                            Manifest.permission.CAMERA}, 100);
+                    };
+                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(intent, 100);
+
+            }
+        });
 
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -124,7 +151,7 @@ public class SearchProductsActivity extends AppCompatActivity implements SearchP
                     Toast.makeText(SearchProductsActivity.this, "Enter Product Description! ", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                CreateProductSchema newProduct = new CreateProductSchema(pref.getString("SESSION_TOKEN", null), name, description, barcode, false);
+                CreateProductSchema newProduct = new CreateProductSchema(pref.getString("SESSION_TOKEN", null), name, description, barcode, false, base64);
                 viewModel.createNewProduct(newProduct, currentCategory.categoryId);
                 dialogBuilder.dismiss();
                 Intent intent = new Intent(SearchProductsActivity.this, ProductListActivity.class);
@@ -183,6 +210,7 @@ public class SearchProductsActivity extends AppCompatActivity implements SearchP
         dialogBuilder.show();
     }
 
+
     private void showRatingDialog(Product product) {
         dialogBuilder = new AlertDialog.Builder(this).create();
         dialogView = getLayoutInflater().inflate(R.layout.dialog_rating, null);
@@ -221,16 +249,27 @@ public class SearchProductsActivity extends AppCompatActivity implements SearchP
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        IntentResult intentResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-        String ciao = intentResult.getContents();
-
-        if(intentResult.getContents() != null) {
-            viewModel.getProductByBarcode(intentResult.getContents());
+        if(requestCode == 100){
+            Bitmap bitmap = (Bitmap) data.getExtras().get("data");
+            imageView.setImageBitmap(bitmap);
+            String base64conversion = encodeImage(bitmap);
+            base64 = base64conversion;
+        }else {
+            IntentResult intentResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+            String ciao = intentResult.getContents();
+            if (intentResult.getContents() != null)
+                viewModel.getProductByBarcode(intentResult.getContents());
+             else
+                Toast.makeText(SearchProductsActivity.this, "You did not scan anything", Toast.LENGTH_SHORT).show();
         }
-        else {
-            Toast.makeText(SearchProductsActivity.this, "You did not scan anything", Toast.LENGTH_SHORT).show();
+    }
 
-        }
-
+    private String encodeImage(Bitmap bm) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bm.compress(Bitmap.CompressFormat.JPEG,100,baos);
+        byte[] b = baos.toByteArray();
+        String encImage = Base64.encodeToString(b, Base64.DEFAULT);
+        return encImage;
     }
 }
+

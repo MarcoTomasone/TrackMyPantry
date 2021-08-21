@@ -57,7 +57,6 @@ public class ProductListActivity extends AppCompatActivity implements ProductLis
                 finish();
             }
         });
-
         initViewModel();
         initRecyclerView();
         //viewModel.getAllItemsList(currentCategory.categoryId);
@@ -116,5 +115,17 @@ public class ProductListActivity extends AppCompatActivity implements ProductLis
         viewModel.updateProduct(productToUpdate);
        // ((EditText) findViewById(R.id.addNewProduct)).setText("");
         productToUpdate = null;
+    }
+
+    @Override
+    public void addQuantityClick(Product product) {
+        product.setQuantity(product.getQuantity() + 1);
+        viewModel.updateProduct(product);
+    }
+
+    @Override
+    public void removeQuantityClick(Product product) {
+        product.setQuantity(product.getQuantity() - 1);
+        viewModel.updateProduct(product);
     }
 }

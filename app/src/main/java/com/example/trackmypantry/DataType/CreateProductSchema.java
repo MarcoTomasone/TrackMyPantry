@@ -6,13 +6,15 @@ public class CreateProductSchema {
     String description;
     String barcode;
     boolean test;
+    String img;
 
-    public CreateProductSchema(String token, String name, String description, String barcode, boolean test) {
+    public CreateProductSchema(String token, String name, String description, String barcode, boolean test, String img) {
         this.token = token;
         this.name = name;
         this.description = description;
         this.barcode = barcode;
         this.test = test;
+        this.img = img;
     }
 
     public String getToken() {

@@ -119,21 +119,19 @@ public class ProductListRepository {
     //TODO: Check if the product exist already else add quantity
     void insertProduct(Product product){
         product.setUserEmail(pref.getString("EMAIL", null));
+        product.setQuantity(1); //When you insert a new product default quantity is 1
         appDataBase.pantryDao().insertProduct(product);
         getAllProductsList(product.getCategoryId());
-       // getAllItemsList(product.getCategoryId()); //update instantly
     }
 
     public void updateProduct(Product product){
         appDataBase.pantryDao().updateProduct(product);
         getAllProductsList(product.getCategoryId());
-        //getAllItemsList(product.getCategoryId()); //update instantly
     }
 
     public void deleteProduct(Product product){
         appDataBase.pantryDao().deleteProduct(product);
         getAllProductsList(product.getCategoryId());
-        //getAllItemsList(product.getCategoryId()); //update instantly
     }
 }
 

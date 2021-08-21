@@ -21,6 +21,7 @@ public class Product {
     private String updatedAt;
     private int categoryId;
     private String userEmail;
+    private int quantity;
 
     public String getBarcode() { return barcode; }
     public String getId() { return id; }
@@ -39,6 +40,10 @@ public class Product {
         return createdAt;
     }
     public String getUserEmail() {return userEmail;}
+    public int getQuantity() {
+        return quantity;
+    }
+
     public void setBarcode(String barcode) {
         this.barcode = barcode;
     }
@@ -78,7 +83,11 @@ public class Product {
     public void setUpdatedAt(String updatedAt) {
         this.updatedAt = updatedAt;
     }
+
     public void setUserEmail(String userEmail) {this.userEmail = userEmail; }
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
 }
 
 
