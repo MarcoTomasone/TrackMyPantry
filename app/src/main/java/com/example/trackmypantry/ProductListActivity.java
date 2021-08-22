@@ -45,7 +45,6 @@ public class ProductListActivity extends AppCompatActivity implements ProductLis
         currentCategory.categoryId = getIntent().getIntExtra("category_id", 0 );
         currentCategory.categoryName = getIntent().getStringExtra("category_name");
         getSupportActionBar().setTitle(currentCategory.categoryName);
-        Log.i("CAT", currentCategory.categoryName + currentCategory.categoryId);
         ImageView searchButton = findViewById(R.id.searchForProductImageView);
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override

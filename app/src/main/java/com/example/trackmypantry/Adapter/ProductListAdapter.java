@@ -1,5 +1,6 @@
 package com.example.trackmypantry.Adapter;
 
+import android.app.DownloadManager;
 import android.content.Context;
 import android.graphics.Paint;
 import android.view.LayoutInflater;
@@ -12,6 +13,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.trackmypantry.DataType.Product;
 import com.example.trackmypantry.R;
 
@@ -45,6 +48,15 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
         holder.tvProductName.setText(this.productList.get(position).getName());
         holder.tvProductDescription.setText(this.productList.get(position).getDescription());
         holder.quantity.setText(String.valueOf(this.productList.get(position).getQuantity()));
+        if(this.productList.get(position).getImg() != null) {
+            if(!this.productList.get(position).getImg().startsWith("data:image/jpeg;base64,"))
+               this.productList.get(position).setImg("data:image/jpeg;base64," + this.productList.get(position).getImg());
+            Glide.with(context).load(this.productList.get(position).getImg())
+                    .apply(RequestOptions.centerCropTransform()).into(holder.productImage);
+        }
+        else
+            Glide.with(context).load(R.drawable.no_image_avaible).into(holder.productImage);
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -81,6 +93,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
         });
     }
 
+
     @Override
     public int getItemCount() {
         if (productList == null || productList.size() == 0)
@@ -93,9 +106,11 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
         TextView tvProductName;
         TextView tvProductDescription;
         TextView quantity;
+        ImageView productImage;
         ImageView deleteProduct;
         Button addQuantity;
         Button removeQuantity;
+
 
         public MyViewHolder(View view){
             super(view);
@@ -105,6 +120,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
             addQuantity = view.findViewById(R.id.add_quantity);
             removeQuantity = view.findViewById(R.id.remove_quantity);
             quantity = view.findViewById(R.id.quantity_number);
+            productImage = view.findViewById(R.id.product_image);
         }
     }
 

@@ -116,6 +116,7 @@ public class ProductListRepository {
             }
         });
     }
+
     //TODO: Check if the product exist already else add quantity
     void insertProduct(Product product){
         product.setUserEmail(pref.getString("EMAIL", null));

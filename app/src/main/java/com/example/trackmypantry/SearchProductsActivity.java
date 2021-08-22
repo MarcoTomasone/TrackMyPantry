@@ -164,6 +164,7 @@ public class SearchProductsActivity extends AppCompatActivity implements SearchP
         dialogBuilder.setView(dialogView);
         dialogBuilder.show();
     }
+
     private void showSearchProductDialog() {
         dialogBuilder = new AlertDialog.Builder(this).create();
         dialogView = getLayoutInflater().inflate(R.layout.search_product_dialog, null);
@@ -185,7 +186,6 @@ public class SearchProductsActivity extends AppCompatActivity implements SearchP
                 intentIntegrator.initiateScan();
             }
         });
-
 
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -209,7 +209,6 @@ public class SearchProductsActivity extends AppCompatActivity implements SearchP
         dialogBuilder.setView(dialogView);
         dialogBuilder.show();
     }
-
 
     private void showRatingDialog(Product product) {
         dialogBuilder = new AlertDialog.Builder(this).create();
@@ -253,7 +252,7 @@ public class SearchProductsActivity extends AppCompatActivity implements SearchP
             Bitmap bitmap = (Bitmap) data.getExtras().get("data");
             imageView.setImageBitmap(bitmap);
             String base64conversion = encodeImage(bitmap);
-            base64 = base64conversion;
+            base64 = "data:image/jpeg;base64," + base64conversion;
         }else {
             IntentResult intentResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
             String ciao = intentResult.getContents();
