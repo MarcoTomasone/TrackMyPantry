@@ -1,5 +1,6 @@
 package com.example.trackmypantry;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -14,6 +15,7 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -25,6 +27,8 @@ import com.example.trackmypantry.DataType.Category;
 import com.example.trackmypantry.DataType.GetProductSchema;
 import com.example.trackmypantry.DataType.Product;
 import com.example.trackmypantry.ViewModel.ProductListActivityViewModel;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
 
 import java.io.Serializable;
 import java.util.List;
@@ -34,12 +38,33 @@ public class ProductListActivity extends AppCompatActivity implements ProductLis
     private ProductListAdapter productListAdapter;
     private ProductListActivityViewModel viewModel;
     private RecyclerView recyclerView;
-    private Product productToUpdate = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_list);
+        //Bottom Navigation Bar
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch(item.getItemId()){
+                    case R.id.logout_menu:
+                        startActivity(new Intent(ProductListActivity.this, LoginActivity.class));
+                        finish();
+                        return true;
+                    case R.id.categories_menu:
+                        startActivity(new Intent(ProductListActivity.this, CategoryListActivity.class));
+                        finish();
+                        return true;
+                    case R.id.shopping_list_menu:
+                        startActivity(new Intent(ProductListActivity.this, ShoppingListActivity.class));
+                        finish();
+                        return true;
+                }
+                return false;
+            }
+        });
 
         currentCategory = new Category();
         currentCategory.categoryId = getIntent().getIntExtra("category_id", 0 );
@@ -58,7 +83,7 @@ public class ProductListActivity extends AppCompatActivity implements ProductLis
         });
         initViewModel();
         initRecyclerView();
-        //viewModel.getAllItemsList(currentCategory.categoryId);
+
     }
 
 
@@ -90,30 +115,8 @@ public class ProductListActivity extends AppCompatActivity implements ProductLis
     }
 
     @Override
-    public void itemClick(Product product) {
-   /*     if(product.isEmpty)
-            product.isEmpty = false;
-        else
-            product.isEmpty = true;
-        viewModel.updateProduct(product);*/
-    }
-
-    @Override
     public void deleteClick(Product product) {
         viewModel.deleteProduct(product);
-    }
-
-    @Override
-    public void editClick(Product product) {
-        this.productToUpdate = product;
-       // ((EditText) findViewById(R.id.addNewProduct)).setText("");
-        viewModel.updateProduct(product);
-    }
-    private void updateProduct(String productName) {
-        productToUpdate.setName(productName);
-        viewModel.updateProduct(productToUpdate);
-       // ((EditText) findViewById(R.id.addNewProduct)).setText("");
-        productToUpdate = null;
     }
 
     @Override

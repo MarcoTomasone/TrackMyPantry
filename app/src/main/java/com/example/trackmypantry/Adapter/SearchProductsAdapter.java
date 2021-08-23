@@ -10,6 +10,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.trackmypantry.DataType.Category;
 import com.example.trackmypantry.DataType.Product;
 import com.example.trackmypantry.R;
@@ -42,6 +44,13 @@ public class SearchProductsAdapter extends RecyclerView.Adapter<SearchProductsAd
     public void onBindViewHolder(@NonNull SearchProductsAdapter.MyViewHolder holder, int position) {
         holder.tvProductName.setText(this.productList.get(position).getName());
         holder.tvProductDescription.setText(this.productList.get(position).getDescription());
+        if(this.productList.get(position).getImg() != null) {
+            if (!this.productList.get(position).getImg().startsWith("data:image/jpeg;base64,"))
+                this.productList.get(position).setImg("data:image/jpeg;base64," + this.productList.get(position).getImg());
+            Glide.with(context).load(this.productList.get(position).getImg())
+                    .apply(RequestOptions.centerCropTransform()).into(holder.searchedProductImage);
+        }  else
+            Glide.with(context).load(R.drawable.no_image_avaible).into(holder.searchedProductImage);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -62,12 +71,13 @@ public class SearchProductsAdapter extends RecyclerView.Adapter<SearchProductsAd
     public class MyViewHolder extends RecyclerView.ViewHolder{
         TextView tvProductName;
         TextView tvProductDescription;
+        ImageView searchedProductImage;
 
         public MyViewHolder(View view){
             super(view);
             tvProductName = view.findViewById(R.id.textViewSearchedProductName);
             tvProductDescription = view.findViewById(R.id.textViewSearchedProductDescription);
-
+            searchedProductImage = view.findViewById(R.id.searched_product_image);
         }
     }
 

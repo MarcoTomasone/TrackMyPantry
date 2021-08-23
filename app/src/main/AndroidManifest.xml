@@ -13,11 +13,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TrackMyPantry">
-        <activity android:name=".SearchProductsActivity"></activity>
+        <activity android:name=".ShoppingListActivity"></activity>
+        <activity android:name=".SearchProductsActivity" />
         <activity android:name=".LoginActivity" />
         <activity
             android:name=".ProductListActivity"
-            android:label="@string/title_activity_product_list"></activity>
+            android:label="@string/title_activity_product_list" />
         <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,11 +27,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".CategoryListActivity" />
-        <activity android:name=".ScanActivity"
+        <activity
+            android:name=".ScanActivity"
             android:screenOrientation="portrait"
             android:stateNotNeeded="true"
-            android:theme="@style/zxing_CaptureTheme"
-            />
+            android:theme="@style/zxing_CaptureTheme" />
     </application>
 
 </manifest>

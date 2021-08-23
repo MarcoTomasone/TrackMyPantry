@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.lifecycle.MutableLiveData;
 
@@ -15,6 +16,7 @@ import com.example.trackmypantry.DataType.GetProductSchema;
 import com.example.trackmypantry.DataType.Product;
 import com.example.trackmypantry.Network.APIService;
 import com.example.trackmypantry.Network.RetroInstance;
+import com.example.trackmypantry.ProductListActivity;
 
 import java.util.List;
 
@@ -28,6 +30,7 @@ public class ProductListRepository {
     private Context context;
     private PantryDao pantryDao;
     private MutableLiveData<List<Product>> listOfProducts;
+    private MutableLiveData<List<Product>> listOfEmptyProducts;
     private AppDataBase appDataBase;
     private MutableLiveData<GetProductSchema> searchResponse;
     private SharedPreferences pref;
@@ -38,6 +41,7 @@ public class ProductListRepository {
         pantryDao = appDataBase.pantryDao();
         listOfProducts = new MutableLiveData<>();
         searchResponse = new MutableLiveData<>();
+        listOfEmptyProducts =  new MutableLiveData<>();
         pref = application.getApplicationContext().getSharedPreferences("MY_PREFERENCES", MODE_PRIVATE);
     }
 
@@ -45,15 +49,22 @@ public class ProductListRepository {
         return searchResponse;
     }
     public MutableLiveData<List<Product>> getListOfProducts() {return listOfProducts;}
+    public MutableLiveData<List<Product>> getListOfEmptyProducts() {return listOfEmptyProducts;}
 
     //Function to get all the categories in the DataBase and post them into the liveData to populate RecyclerView on Load
     public void getAllProductsList(int categoryId){
-        List<Product> productsList = appDataBase.pantryDao().getAllProductsList(categoryId, pref.getString("EMAIL", null));
+        List<Product> productsList = appDataBase.pantryDao().getAllProductsListForCategory(categoryId, pref.getString("EMAIL", null));
         if(productsList.size() > 0)
             listOfProducts.postValue(productsList);
         else
             listOfProducts.postValue(null);
-
+    }
+    public void getAllEmptyProducts() {
+        List<Product> productsList = appDataBase.pantryDao().getAllEmptyProducts(pref.getString("EMAIL", null));
+        if(productsList.size() > 0)
+            listOfEmptyProducts.postValue(productsList);
+        else
+            listOfEmptyProducts.postValue(null);
     }
 
     //Function to get all products with a certain barcode
@@ -117,22 +128,38 @@ public class ProductListRepository {
         });
     }
 
-    //TODO: Check if the product exist already else add quantity
+
     void insertProduct(Product product){
-        product.setUserEmail(pref.getString("EMAIL", null));
-        product.setQuantity(1); //When you insert a new product default quantity is 1
-        appDataBase.pantryDao().insertProduct(product);
-        getAllProductsList(product.getCategoryId());
+        Product prodExist = appDataBase.pantryDao().isProductIn(product.getCategoryId(), product.getId());
+        if( prodExist != null) {
+            if(prodExist.getCategoryId() == product.getCategoryId()){
+                prodExist.setQuantity(prodExist.getQuantity() + 1);
+                updateProduct(prodExist);
+            }else {
+                prodExist.setQuantity(prodExist.getQuantity() + 1);
+                prodExist.setCategoryId(product.getCategoryId());
+                updateProduct(prodExist);
+            }
+        }
+        else{
+            product.setUserEmail(pref.getString("EMAIL", null));
+            product.setQuantity(1); //When you insert a new product default quantity is 1
+            appDataBase.pantryDao().insertProduct(product);
+            getAllProductsList(product.getCategoryId());
+            getAllEmptyProducts();
+        }
     }
 
     public void updateProduct(Product product){
         appDataBase.pantryDao().updateProduct(product);
         getAllProductsList(product.getCategoryId());
+        getAllEmptyProducts();
     }
 
     public void deleteProduct(Product product){
         appDataBase.pantryDao().deleteProduct(product);
         getAllProductsList(product.getCategoryId());
+        getAllEmptyProducts();
     }
 }
 

@@ -1,37 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CategoryListActivity">
+    tools:context=".ShoppingListActivity">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+        android:id="@+id/recyclerViewShoppingList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/addNewCategoryImageView"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="10dp"
         android:paddingBottom="50dp"
-        />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:text="Add a new category: "
         />
-    <ImageView android:id="@+id/addNewCategoryImageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_margin="15dp"
-        android:src="@drawable/ic_add_circle_outline_black_36dp"
-        />
-    <TextView android:id="@+id/categoryTextView"
+
+    <TextView android:id="@+id/emptyProductsTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
@@ -41,9 +27,8 @@
         android:textSize="22sp"
         android:textAlignment="center"
         android:textStyle="bold"
-        android:text="@string/empty"
+        android:text="Your shopping list is empty"
         />
-
     <com.google.android.material.bottomnavigation.BottomNavigationView
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_width="match_parent"
@@ -55,4 +40,5 @@
         app:menu="@menu/menu_navigation"
         android:layout_alignParentBottom="true"
         />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

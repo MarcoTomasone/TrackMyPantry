@@ -86,23 +86,5 @@ public class LoginViewModel extends AndroidViewModel {
             }
         });
     }
-    //Todo: evaluate if need this function or not
-    public void getAllUSerData(){
-        Call<Authentication> call = apiService.getUserData("Bearer " + accessToken.getAccessToken());
-        call.enqueue(new Callback<Authentication>() {
-            @Override
-            public void onResponse(Call<Authentication> call, Response<Authentication> response) {
-                if (response.isSuccessful()) {
-                    Authentication userData = new Authentication();
-                    userData = (Authentication) response.body();
-
-                }
-            }
-            @Override
-            public void onFailure(Call<Authentication> call, Throwable t) {
-                Log.e("Retrofit",t.getLocalizedMessage());
-            }
-        });
-    }
 }
 

@@ -25,8 +25,11 @@ public interface PantryDao {
     @Delete
     void deleteCategory(Category category);
 
-    @Query("Select * from Product where categoryId = :catId and userEmail = :email")
-    List<Product> getAllProductsList(int catId, String email);
+    @Query("Select * from Product where categoryId = :catId and userEmail = :email and quantity > 0 ")
+    List<Product> getAllProductsListForCategory(int catId, String email);
+
+    @Query("Select * from Product where userEmail = :email and quantity = 0 ")
+    List<Product> getAllEmptyProducts(String email);
 
     @Insert
     void insertProduct(Product product);
@@ -39,4 +42,7 @@ public interface PantryDao {
 
     @Query("Delete from Product where categoryId = :catId")
     void deleteAllProductsForCategory(int catId);
+
+    @Query("Select * from Product where categoryId = :catId and id = :prodId")
+    Product isProductIn(int catId, String prodId);
 }

@@ -45,31 +45,16 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
 
     @Override //Set data to our TextView
     public void onBindViewHolder(@NonNull ProductListAdapter.MyViewHolder holder, int position) {
-        holder.tvProductName.setText(this.productList.get(position).getName());
-        holder.tvProductDescription.setText(this.productList.get(position).getDescription());
-        holder.quantity.setText(String.valueOf(this.productList.get(position).getQuantity()));
-        if(this.productList.get(position).getImg() != null) {
-            if(!this.productList.get(position).getImg().startsWith("data:image/jpeg;base64,"))
-               this.productList.get(position).setImg("data:image/jpeg;base64," + this.productList.get(position).getImg());
-            Glide.with(context).load(this.productList.get(position).getImg())
-                    .apply(RequestOptions.centerCropTransform()).into(holder.productImage);
-        }
-        else
-            Glide.with(context).load(R.drawable.no_image_avaible).into(holder.productImage);
-
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                clickListener.itemClick(productList.get(position));
-            }
-        });
-
-        /*holder.editProduct.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                clickListener.editClick(productList.get(position));
-            }
-        });*/
+            holder.tvProductName.setText(this.productList.get(position).getName());
+            holder.tvProductDescription.setText(this.productList.get(position).getDescription());
+            holder.quantity.setText(String.valueOf(this.productList.get(position).getQuantity()));
+            if (this.productList.get(position).getImg() != null) {
+                if (!this.productList.get(position).getImg().startsWith("data:image/jpeg;base64,"))
+                    this.productList.get(position).setImg("data:image/jpeg;base64," + this.productList.get(position).getImg());
+                Glide.with(context).load(this.productList.get(position).getImg())
+                        .apply(RequestOptions.centerCropTransform()).into(holder.productImage);
+            } else
+                Glide.with(context).load(R.drawable.no_image_avaible).into(holder.productImage);
 
         holder.deleteProduct.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,7 +78,6 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
         });
     }
 
-
     @Override
     public int getItemCount() {
         if (productList == null || productList.size() == 0)
@@ -111,7 +95,6 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
         Button addQuantity;
         Button removeQuantity;
 
-
         public MyViewHolder(View view){
             super(view);
             tvProductName = view.findViewById(R.id.textViewProductName);
@@ -125,9 +108,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
     }
 
     public interface HandleProductClick {
-        void itemClick(Product product);
         void deleteClick(Product product);
-        void editClick(Product product);
         void addQuantityClick(Product product);
         void removeQuantityClick(Product product);
     }
