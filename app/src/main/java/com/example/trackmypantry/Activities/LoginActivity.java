@@ -1,19 +1,17 @@
-package com.example.trackmypantry;
+package com.example.trackmypantry.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.trackmypantry.DataType.LoginData;
 import com.example.trackmypantry.DataType.RegisterData;
+import com.example.trackmypantry.R;
 import com.example.trackmypantry.ViewModel.LoginViewModel;
 
 public class LoginActivity extends AppCompatActivity {

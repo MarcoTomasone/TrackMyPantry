@@ -4,7 +4,6 @@ import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.lifecycle.MutableLiveData;
 
@@ -16,7 +15,6 @@ import com.example.trackmypantry.DataType.GetProductSchema;
 import com.example.trackmypantry.DataType.Product;
 import com.example.trackmypantry.Network.APIService;
 import com.example.trackmypantry.Network.RetroInstance;
-import com.example.trackmypantry.ProductListActivity;
 
 import java.util.List;
 
@@ -123,7 +121,7 @@ public class ProductListRepository {
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
-                Log.i("RETROFIT", "OK IL CAZZO ");
+                Log.i("RETROFIT", "OK");
             }
         });
     }

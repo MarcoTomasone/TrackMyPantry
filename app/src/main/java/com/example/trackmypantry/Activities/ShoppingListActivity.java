@@ -1,4 +1,4 @@
-package com.example.trackmypantry;
+package com.example.trackmypantry.Activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,9 +12,9 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.example.trackmypantry.Adapter.ProductListAdapter;
 import com.example.trackmypantry.Adapter.ShoppingListAdapter;
 import com.example.trackmypantry.DataType.Product;
+import com.example.trackmypantry.R;
 import com.example.trackmypantry.ViewModel.ProductListActivityViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;

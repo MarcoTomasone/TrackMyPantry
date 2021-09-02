@@ -1,4 +1,4 @@
-package com.example.trackmypantry;
+package com.example.trackmypantry.Activities;
 
 import com.journeyapps.barcodescanner.CaptureActivity;
 

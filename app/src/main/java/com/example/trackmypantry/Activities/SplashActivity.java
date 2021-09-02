@@ -1,4 +1,4 @@
-package com.example.trackmypantry;
+package com.example.trackmypantry.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,6 +7,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.widget.Toast;
+
+import com.example.trackmypantry.R;
 
 import java.util.Calendar;
 import java.util.Locale;
@@ -25,6 +28,10 @@ public class SplashActivity extends AppCompatActivity {
         if(savedAccessTokenData != -1) {
             if (currentDate < savedAccessTokenData + oneWeekAsSec)
                 intent = new Intent(SplashActivity.this, CategoryListActivity.class);
+            else{
+                Toast.makeText(SplashActivity.this,"Token Expired! Please Log In", Toast.LENGTH_SHORT).show();
+                intent = new Intent(SplashActivity.this, LoginActivity.class);
+            }
         }
         else
                 intent = new Intent(SplashActivity.this, LoginActivity.class);

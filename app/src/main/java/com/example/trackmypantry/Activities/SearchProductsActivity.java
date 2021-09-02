@@ -1,7 +1,5 @@
-package com.example.trackmypantry;
+package com.example.trackmypantry.Activities;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -16,13 +14,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.media.Image;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Base64;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -31,13 +26,13 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.trackmypantry.Adapter.CategoryListAdapter;
 import com.example.trackmypantry.Adapter.SearchProductsAdapter;
 import com.example.trackmypantry.DataType.Category;
 import com.example.trackmypantry.DataType.CreateProductSchema;
 import com.example.trackmypantry.DataType.CreateVoteSchema;
 import com.example.trackmypantry.DataType.GetProductSchema;
 import com.example.trackmypantry.DataType.Product;
+import com.example.trackmypantry.R;
 import com.example.trackmypantry.ViewModel.ProductListActivityViewModel;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
@@ -76,9 +71,16 @@ public class SearchProductsActivity extends AppCompatActivity implements SearchP
             }
         });
 
+        ImageView search_button = findViewById(R.id.search_product_button);
+        search_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showSearchProductDialog();
+            }
+        });
+
         initViewModel();
         initRecyclerView();
-
         showSearchProductDialog();
     }
 
@@ -265,7 +267,7 @@ public class SearchProductsActivity extends AppCompatActivity implements SearchP
 
     private String encodeImage(Bitmap bm) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bm.compress(Bitmap.CompressFormat.JPEG,100,baos);
+        bm.compress(Bitmap.CompressFormat.JPEG,60,baos);
         byte[] b = baos.toByteArray();
         String encImage = Base64.encodeToString(b, Base64.DEFAULT);
         return encImage;

@@ -5,31 +5,37 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ProductListActivity">
-    
-    <androidx.recyclerview.widget.RecyclerView android:id="@+id/recyclerViewProduct"
+    android:background="@color/beige_chiaro"
+    tools:context=".Activities.ProductListActivity">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewProduct"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/searchForProductImageView"
-        app:layout_constraintEnd_toStartOf="@id/bottom_navigation"
-        android:layout_marginTop="10dp"
-        android:paddingBottom="50dp" />
+        app:layout_constraintTop_toBottomOf="@+id/searchForProductImageView"
+         />
+
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:text="Search for a new product: "
-        />
-    <ImageView android:id="@+id/searchForProductImageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_margin="15dp"
-        android:src="@drawable/ic_add_circle_outline_black_36dp"
-        />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:textSize="30sp"
+            android:layout_marginVertical="14dp"
+            android:textColor="@color/black"
+            android:text="Search for a new product: "
+            />
+
+        <ImageView android:id="@+id/searchForProductImageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_margin="15dp"
+            android:src="@drawable/ic_add_circle_outline_black_36dp"
+            />
 
     <TextView android:id="@+id/productsTextView"
         android:layout_width="wrap_content"
@@ -45,13 +51,13 @@
         />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/bottom_navigation"
-        app:itemBackground="@color/cardview_light_background"
-        app:itemTextColor="@drawable/selector"
-        app:itemIconTint="@drawable/selector"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:itemBackground="@color/beige_scuro"
+        app:itemTextColor="@color/black"
+        app:itemIconTint="@color/black"
         app:menu="@menu/menu_navigation"
         android:layout_alignParentBottom="true"
         />

@@ -92,8 +92,10 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
         TextView quantity;
         ImageView productImage;
         ImageView deleteProduct;
-        Button addQuantity;
-        Button removeQuantity;
+        //Button addQuantity;
+        //Button removeQuantity;
+        TextView addQuantity;
+        TextView removeQuantity;
 
         public MyViewHolder(View view){
             super(view);
