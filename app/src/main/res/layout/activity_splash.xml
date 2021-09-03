@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Activities.SplashActivity"
-    android:background="@color/beige_chiaro">
+    android:background="@color/celeste">
 
     <TextView
         android:id="@+id/textView"

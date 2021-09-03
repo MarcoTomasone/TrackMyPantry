@@ -3,6 +3,7 @@ package com.example.trackmypantry.Adapter;
 import android.app.DownloadManager;
 import android.content.Context;
 import android.graphics.Paint;
+import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -92,10 +93,8 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
         TextView quantity;
         ImageView productImage;
         ImageView deleteProduct;
-        //Button addQuantity;
-        //Button removeQuantity;
-        TextView addQuantity;
-        TextView removeQuantity;
+        ImageView addQuantity;
+        ImageView removeQuantity;
 
         public MyViewHolder(View view){
             super(view);

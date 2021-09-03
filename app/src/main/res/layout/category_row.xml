@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_margin="10dp"
-    android:background="@color/beige_chiaro"
+    android:background="@color/white"
     >
 
     <androidx.cardview.widget.CardView
@@ -18,14 +18,14 @@
         android:layout_marginEnd="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
-        app:cardBackgroundColor="@color/beige_scuro"
+        app:cardBackgroundColor="@color/celeste"
         app:cardElevation="10dp"
         >
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/beige_scuro"
+            android:background="@color/celeste"
             android:layout_margin="10dp">
 
             <TextView android:id="@+id/textViewCategoryName"

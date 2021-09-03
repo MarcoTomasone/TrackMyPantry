@@ -2,11 +2,15 @@ package com.example.trackmypantry.ViewModel;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.trackmypantry.Activities.ProductListActivity;
+import com.example.trackmypantry.Activities.SearchProductsActivity;
 import com.example.trackmypantry.DataBase.AppDataBase;
 import com.example.trackmypantry.DataBase.PantryDao;
 import com.example.trackmypantry.DataType.CreateProductSchema;
@@ -66,7 +70,7 @@ public class ProductListRepository {
     }
 
     //Function to get all products with a certain barcode
-    void getProductsByBarcode(String barcode) {
+    void getProductsByBarcode(String barcode, SearchProductsActivity searchProductsActivity) {
         APIService apiService = RetroInstance.getRetroClient().create(APIService.class);
         Call<GetProductSchema> call = apiService.getProductByBarcode(barcode, "Bearer " + pref.getString("ACCESS_TOKEN",""));
         call.enqueue(new Callback<GetProductSchema>() {
@@ -79,7 +83,7 @@ public class ProductListRepository {
                     editor.putString("SESSION_TOKEN", response.body().getToken());
                     editor.commit();
                 } else {
-                    Log.e("ERROR", "Error try again");
+                    Toast.makeText(searchProductsActivity.getApplicationContext(),"Error searching Product!", Toast.LENGTH_SHORT).show();
                 }
             }
             @Override
@@ -89,16 +93,24 @@ public class ProductListRepository {
         });
 
     }
-    public void createNewProduct(CreateProductSchema productSchema, int categoryId) {
+    public void createNewProduct(CreateProductSchema productSchema, int categoryId, SearchProductsActivity searchProductsActivity) {
         APIService apiService = RetroInstance.getRetroClient().create(APIService.class);
         Call<Product> call = apiService.insertNewProduct(productSchema, "Bearer " + pref.getString("ACCESS_TOKEN",""));
         call.enqueue(new Callback<Product>() {
             @Override
             public void onResponse(Call<Product> call, Response<Product> response) {
-                Product product = (Product) response.body();
-                product.setCategoryId(categoryId);
-                product.setUserEmail(pref.getString("EMAIL", null));
-                insertProduct(product);
+                if (response.isSuccessful()) {
+                    Product product = (Product) response.body();
+                    product.setCategoryId(categoryId);
+                    product.setUserEmail(pref.getString("EMAIL", null));
+                    insertProduct(product);
+                    Intent intent = new Intent(searchProductsActivity, ProductListActivity.class);
+                    intent.putExtra("category_id", searchProductsActivity.getCurrentCategory().categoryId);
+                    intent.putExtra("category_name",searchProductsActivity.getCurrentCategory().categoryName);
+                    searchProductsActivity.startActivity(intent);
+                } else{
+                    Toast.makeText(searchProductsActivity.getApplicationContext(),"Error creating Product!", Toast.LENGTH_SHORT).show();
+                }
             }
             @Override
             public void onFailure(Call<Product> call, Throwable t) {

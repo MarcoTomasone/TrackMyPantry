@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/beige_chiaro"
+    android:background="@color/white"
     tools:context=".Activities.ShoppingListActivity">
 
     <androidx.recyclerview.widget.RecyclerView
@@ -34,7 +34,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/bottom_navigation"
-        app:itemBackground="@color/beige_scuro"
+        app:itemBackground="@color/celeste"
         app:itemTextColor="@color/black"
         app:itemIconTint="@color/black"
         app:menu="@menu/menu_navigation"

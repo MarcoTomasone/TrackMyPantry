@@ -6,6 +6,7 @@ import android.util.Log;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.trackmypantry.Activities.SearchProductsActivity;
 import com.example.trackmypantry.DataType.Category;
 import com.example.trackmypantry.DataType.CreateProductSchema;
 import com.example.trackmypantry.DataType.CreateVoteSchema;
@@ -41,12 +42,12 @@ public class ProductListActivityViewModel extends AndroidViewModel {
         productListRepository.getAllProductsList(categoryId);
     }
 
-    public void getProductByBarcode(String barcode)  {
-        productListRepository.getProductsByBarcode(barcode);
+    public void getProductByBarcode(String barcode, SearchProductsActivity searchProductsActivity)  {
+        productListRepository.getProductsByBarcode(barcode, searchProductsActivity);
     }
 
-    public void createNewProduct(CreateProductSchema productSchema, int categoryId){
-        productListRepository.createNewProduct(productSchema, categoryId);
+    public void createNewProduct(CreateProductSchema productSchema, int categoryId, SearchProductsActivity searchProductsActivity){
+        productListRepository.createNewProduct(productSchema, categoryId, searchProductsActivity);
     }
 
     public void rateProduct(CreateVoteSchema voteSchema){

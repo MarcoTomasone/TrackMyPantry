@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Activities.LoginActivity"
-    android:background="#E7BD7C">
+    android:background="@color/white">
 
     <EditText
         android:id="@+id/editTextTextPassword"
@@ -65,8 +65,9 @@
         android:id="@+id/buttonSignInUp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:backgroundTint="#C8A164"
+        android:backgroundTint="@color/celeste"
         android:text="Sign In "
+        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"

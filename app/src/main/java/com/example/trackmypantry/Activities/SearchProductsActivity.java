@@ -14,6 +14,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.TextUtils;
@@ -154,12 +155,8 @@ public class SearchProductsActivity extends AppCompatActivity implements SearchP
                     return;
                 }
                 CreateProductSchema newProduct = new CreateProductSchema(pref.getString("SESSION_TOKEN", null), name, description, barcode, false, base64);
-                viewModel.createNewProduct(newProduct, currentCategory.categoryId);
+                viewModel.createNewProduct(newProduct, currentCategory.categoryId, SearchProductsActivity.this);
                 dialogBuilder.dismiss();
-                Intent intent = new Intent(SearchProductsActivity.this, ProductListActivity.class);
-                intent.putExtra("category_id", currentCategory.categoryId);
-                intent.putExtra("category_name", currentCategory.categoryName);
-                startActivity(intent);
                 finish();
             }
         });
@@ -204,7 +201,7 @@ public class SearchProductsActivity extends AppCompatActivity implements SearchP
                     Toast.makeText(SearchProductsActivity.this, "Enter Product Barcode! ", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                    viewModel.getProductByBarcode(barcode);
+                    viewModel.getProductByBarcode(barcode, SearchProductsActivity.this);
                 dialogBuilder.dismiss();
             }
         });
@@ -258,9 +255,10 @@ public class SearchProductsActivity extends AppCompatActivity implements SearchP
         }else {
             IntentResult intentResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
             String ciao = intentResult.getContents();
-            if (intentResult.getContents() != null)
-                viewModel.getProductByBarcode(intentResult.getContents());
-             else
+            if (intentResult.getContents() != null) {
+                barcode = intentResult.getContents();
+                viewModel.getProductByBarcode(intentResult.getContents(), SearchProductsActivity.this);
+            } else
                 Toast.makeText(SearchProductsActivity.this, "You did not scan anything", Toast.LENGTH_SHORT).show();
         }
     }
@@ -271,6 +269,10 @@ public class SearchProductsActivity extends AppCompatActivity implements SearchP
         byte[] b = baos.toByteArray();
         String encImage = Base64.encodeToString(b, Base64.DEFAULT);
         return encImage;
+    }
+
+    public Category getCurrentCategory() {
+        return currentCategory;
     }
 }
 
