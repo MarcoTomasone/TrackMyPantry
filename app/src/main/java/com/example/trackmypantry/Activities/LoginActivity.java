@@ -4,15 +4,20 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.trackmypantry.DataType.LoginData;
 import com.example.trackmypantry.DataType.RegisterData;
 import com.example.trackmypantry.R;
 import com.example.trackmypantry.ViewModel.LoginViewModel;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class LoginActivity extends AppCompatActivity {
     EditText nameTV;
@@ -52,21 +57,37 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        //TODO: function to check credentials (email, password ecc), moficiare con i fragment se possibile
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String email = emailTV.getText().toString();
                 String password = passwordTV.getText().toString();
-                if(!isRegister)
-                    viewModel.loginCall(new LoginData(email, password), LoginActivity.this);
-                 else {
-                    String name = nameTV.getText().toString();
-                    viewModel.registerCall(new RegisterData(name, email, password), LoginActivity.this);
+                if(checkEmail(email) && !TextUtils.isEmpty(password) ){
+                    if(!isRegister)
+                        viewModel.loginCall(new LoginData(email, password), LoginActivity.this);
+                     else {
+                         String name = nameTV.getText().toString();
+                        if(!TextUtils.isEmpty(name))
+                            viewModel.registerCall(new RegisterData(name, email, password), LoginActivity.this);
+                        else
+                            Toast.makeText(LoginActivity.this, "Insert Username!", Toast.LENGTH_SHORT).show();
+                    }
+                } else{
+                    Toast.makeText(LoginActivity.this, "Invalid Credentials! Please Check", Toast.LENGTH_SHORT).show();
+                    return;
                 }
             }
         });
         viewModel = new ViewModelProvider(this).get(LoginViewModel.class);
+    }
+
+    private boolean checkEmail(String email) {
+        Pattern pattern = Pattern.compile("[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}");
+        Matcher mat = pattern.matcher(email);
+        if(mat.matches())
+            return true;
+        else
+            return false;
     }
 
 

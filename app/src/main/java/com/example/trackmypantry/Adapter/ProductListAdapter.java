@@ -20,18 +20,25 @@ import com.example.trackmypantry.DataType.Product;
 import com.example.trackmypantry.R;
 
 import java.text.BreakIterator;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.MyViewHolder> {
     private Context context;
     private List<Product> productList;
+    private List<Product> allProductList;
+
     private HandleProductClick clickListener;
 
     public ProductListAdapter(Context context, HandleProductClick clickListener) {
         this.context = context;
         this.clickListener = clickListener;
     }
-
+    public void setAllProductList(List<Product> productList){
+        this.allProductList = productList;
+        this.productList = this.allProductList;
+        notifyDataSetChanged();
+    }
     public void setProductList(List<Product> productList){
         this.productList = productList;
         notifyDataSetChanged();
@@ -85,6 +92,20 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
             return 0;
         else
             return  productList.size();
+    }
+
+    public void filterItems(String text) {
+        List<Product> filteredList = new ArrayList<>();
+        if(text == ""){
+            setProductList(allProductList);
+            return;
+        }
+        for (Product product : allProductList){
+            if(product.getName().toLowerCase().contains(text)){
+                filteredList.add(product);
+            }
+        }
+        setProductList(filteredList);
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder{

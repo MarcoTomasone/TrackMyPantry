@@ -9,8 +9,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.example.trackmypantry.Adapter.ProductListAdapter;
@@ -28,6 +31,7 @@ public class ProductListActivity extends AppCompatActivity implements ProductLis
     private ProductListAdapter productListAdapter;
     private ProductListActivityViewModel viewModel;
     private RecyclerView recyclerView;
+    private EditText filterText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +77,23 @@ public class ProductListActivity extends AppCompatActivity implements ProductLis
         });
         initViewModel();
         initRecyclerView();
+        filterText = findViewById(R.id.filterText);
+        filterText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                filterList(s.toString());
+            }
+        });
     }
 
 
@@ -95,7 +115,7 @@ public class ProductListActivity extends AppCompatActivity implements ProductLis
                     findViewById(R.id.productsTextView).setVisibility(View.VISIBLE);
                 }
                 else {
-                    productListAdapter.setProductList(products);
+                    productListAdapter.setAllProductList(products);
                     findViewById(R.id.productsTextView).setVisibility(View.GONE);
                     recyclerView.setVisibility(View.VISIBLE);
                 }
@@ -119,5 +139,9 @@ public class ProductListActivity extends AppCompatActivity implements ProductLis
     public void removeQuantityClick(Product product) {
         product.setQuantity(product.getQuantity() - 1);
         viewModel.updateProduct(product);
+    }
+
+    public void filterList(String text){
+        productListAdapter.filterItems(text);
     }
 }

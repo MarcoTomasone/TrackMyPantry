@@ -12,7 +12,7 @@
         android:id="@+id/recyclerViewProduct"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
+        app:layout_constraintBottom_toTopOf="@+id/filterText"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/searchForProductTV"
          />
@@ -62,4 +62,16 @@
         app:menu="@menu/menu_navigation"
         android:layout_alignParentBottom="true"
         />
+
+    <EditText
+        android:id="@+id/filterText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="Filter here"
+        app:layout_constraintBottom_toTopOf="@id/bottom_navigation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="757dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -43,7 +43,6 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
 
     @Override //Set data to our TextView
     public void onBindViewHolder(@NonNull ShoppingListAdapter.MyViewHolder holder, int position) {
-             Log.i("ADAPTER", String.valueOf(productList.size()));
             holder.tvProductName.setText(this.productList.get(position).getName());
             holder.tvProductDescription.setText(this.productList.get(position).getDescription());
             if (this.productList.get(position).getImg() != null) {
