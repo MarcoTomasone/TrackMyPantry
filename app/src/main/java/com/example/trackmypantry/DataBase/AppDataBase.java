@@ -19,7 +19,6 @@ public abstract class AppDataBase extends RoomDatabase {
         if(INSTANCE == null){
             //create the database
             INSTANCE = Room.databaseBuilder(context.getApplicationContext(), AppDataBase.class, "ProductDatabase")
-                    .allowMainThreadQueries()
                     .fallbackToDestructiveMigration()
                     .build();
         }

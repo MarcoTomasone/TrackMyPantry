@@ -254,7 +254,6 @@ public class SearchProductsActivity extends AppCompatActivity implements SearchP
             base64 = "data:image/jpeg;base64," + base64conversion;
         }else {
             IntentResult intentResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-            String ciao = intentResult.getContents();
             if (intentResult.getContents() != null) {
                 barcode = intentResult.getContents();
                 viewModel.getProductByBarcode(intentResult.getContents(), SearchProductsActivity.this);
