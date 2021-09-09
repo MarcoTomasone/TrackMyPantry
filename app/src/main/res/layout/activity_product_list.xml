@@ -26,7 +26,7 @@
             android:textSize="30sp"
             android:layout_marginVertical="14dp"
             android:textColor="@color/black"
-            android:text="Search for a new product: "
+            android:text="@string/search"
             />
 
         <ImageView android:id="@+id/searchForProductImageView"

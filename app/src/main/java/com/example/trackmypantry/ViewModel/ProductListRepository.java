@@ -140,7 +140,7 @@ public class ProductListRepository {
 
 
     void insertProduct(Product product){
-        Product prodExist = appDataBase.pantryDao().isProductIn(product.getCategoryId(), product.getId());
+        Product prodExist = appDataBase.pantryDao().isProductIn(product.getId());
         if( prodExist != null) {
             if(prodExist.getCategoryId() == product.getCategoryId()){
                 prodExist.setQuantity(prodExist.getQuantity() + 1);

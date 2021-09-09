@@ -43,6 +43,6 @@ public interface PantryDao {
     @Query("Delete from Product where categoryId = :catId")
     void deleteAllProductsForCategory(int catId);
 
-    @Query("Select * from Product where categoryId = :catId and id = :prodId")
-    Product isProductIn(int catId, String prodId);
+    @Query("Select * from Product where  id = :prodId")
+    Product isProductIn(String prodId);
 }

@@ -2,17 +2,34 @@
     <string name="app_name">Track My Pantry</string>
     <string name="splash">Text For the Splash Activity</string>
     <string name="title_activity_main2">MainActivity</string>
-    <string name="empty">You do not have any categories</string>
+    <string name="empty_categories">You do not have any categories</string>
     <string name="empty_items">You do not have any products for this category</string>
+    <string name="search">Search for a new product:</string>
+    <string name="choose">Choose one of the products below or add a new one</string>
+    <string name="add">Add new product</string>
+    <string name="no_found">Sorry, no product found!</string>
+    <string name="empty_SL">Your shopping list is empty</string>
+    <string name="enter_cat_name">Enter category name</string>
+    <string name="insert_prod_name">Insert New Product</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
+    <string name="name">Name</string>
+    <string name="cancel">Cancel</string>
+    <string name="create">Create</string>
+    <string name="description">Description</string>
+    <string name="rate">Rate</string>
+    <string name="search_button">Search</string>
+    <string name="quantity">Quantity:</string>
+    <string name="search_product">Search Product</string>
+    <string name="barcode">Enter barcode or use camera</string>
+    <string name="rate_product">Rate the product you choose</string>
+    <string name="enter_prod_name">Enter product name</string>
+    <string name="enter_prod_description">Enter product description</string>
     <string name="not_register">Are you not registered yet? Sign up</string>
     <string name="register">Are you already registered? Sign in</string>
-    <string name="hello_first_fragment">Hello first fragment</string>
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="title_activity_product_list">ProductListActivity</string>
 
 </resources>

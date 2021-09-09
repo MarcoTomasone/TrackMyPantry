@@ -44,7 +44,7 @@
         android:textSize="22sp"
         android:textAlignment="center"
         android:textStyle="bold"
-        android:text="@string/empty"
+        android:text="@string/empty_categories"
         />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
