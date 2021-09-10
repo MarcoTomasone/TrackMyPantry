@@ -1,10 +1,11 @@
-\documentclass[11pt]{article}
+\documentclass[12pt]{article}
 \usepackage{amsmath}
 \usepackage{graphicx}
 \usepackage{hyperref}
 \usepackage[utf8]{inputenc}
 \usepackage{listings, wrapfig}
-\usepackage{color}
+\usepackage{color, geometry}
+\geometry{a4paper, top=3cm, bottom=3cm, left=3.5cm, right=3.5cm}
 \title{Report Finale: Track My Pantry}
 \author{Marco Benito Tomasone 873909}
 \date{04/09/2021}
@@ -112,11 +113,14 @@
     
     La scelta di usare per i dati della login le SharedPreferences e non magari il database è data dalla volontà di sperimentare più soluzioni possibili
     per apprendere il più possibile. Può succedere infatti che delle scelte implementative per questo progetto non siano le migliori e che avrei potuto fare
-    scelte diverse, la ragione è proprio quella di sperimentare il più possibile con il codice.
+    scelte diverse, la ragione è proprio quella di sperimentare il più possibile con il codice.\\
     \subsection{Login \& registrazione }
+    \begin{wrapfigure}{l}{4cm}
+        \includegraphics[width=3.5cm]{img/Login.PNG}
+    \end{wrapfigure}
     L'activity di Login e Registrazione contiene un campo nascosto il campo name, che viene visualizzato o meno nel momento in cui si preme il testo per 
     passare tra una vista e l'altra. Questa activity ha un view Model che si occupa di gestire le richieste. Il view model è composto da solo due chiamate
-    la login e la register ed esso sono associati delle classi opportunamente create per la gestione dei dati richiesti, come la LoginData e la RegisterData.
+    la login e la register ed esso sono associati delle classi opportunamente create per la gestione dei dati richiesti, come la LoginData e la RegisterData.\\
     \subsection{Database \& chiamate http}
     In entrambe le classi per la gestione del database con Room e per la gestione delle chiamate Http con Retrofit è stato utilizzato il design pattern creazionale 
     Singleton. 
@@ -209,7 +213,7 @@ public abstract class AppDataBase extends RoomDatabase {
 }
 \end{lstlisting}
 Il codice delle funzioni non è stato inserito per semplicità dal momento in cui verrà allegato a questo report.
-La particolarità principale è il MutableLiveData che permette di essere aggiornato tratime quell'Observer
+La particolarità principale è il MutableLiveData che permette di essere aggiornato tramite quell'Observer
 ed essere osservato dall'Adapter che permette un aggiornamento automatico all'applicazione delle operazioni
 come inserimento, modifica ed eliminazione di una categoria. Dal momento in cui si decide di eliminare una categoria
     dal proprio database verranno anche contestualmente eliminati tutti i prodotti in essa contenuti. La modifica permette,
@@ -246,10 +250,7 @@ come inserimento, modifica ed eliminazione di una categoria. Dal momento in cui 
                 holder.deleteCategory.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        clickListener.deleteClick(categoryList.get(position));
-                        }
-                        });
-                        }
+                        clickListener.deleteClick(categoryList.get(position));}});}
     \end{lstlisting}    
     Questa funzone serve invece per fare binding tra i dati e le parti della View. Come è possibile vedere
     implementano delle funzioni di un clickListener, questo è proprio il dataType sottostante, il ViewHolder. 
@@ -272,10 +273,11 @@ come inserimento, modifica ed eliminazione di una categoria. Dal momento in cui 
                 public interface HandleCategoryClick {
                     void itemClick(Category category);
             void deleteClick(Category category);
-            void editClick(Category category);
-            }
-            }
+            void editClick(Category category);}}
         \end{lstlisting}
+        \begin{wrapfigure}{l}{3.5cm}
+            \includegraphics[width=3.5cm]{img/productlist.PNG}
+        \end{wrapfigure}
     \subsection{Activity Lista di Prodotti}
     Per la lista dei prodotti l'architettura è simile che per la gestione delle categorie, c'è quindi il ViewModel,
     l'Adapter, ma, in aggiunta è stato utilizzato il pattern Repository per implementare la SingleSource of Truth.
@@ -284,6 +286,7 @@ come inserimento, modifica ed eliminazione di una categoria. Dal momento in cui 
     quelli nella lista della spesa che per quelli nella lista dei prodotti. Si allega ad esempio la funzione per la creazione di
     un nuovo prodotto. A seguito di una chiamata http con successo il prodotto oltre ad essere inserito nel db collaborativo
     viene anche automaticamente inserito nel database locale dell'utente.
+    \\\\
     \begin{lstlisting}
         public void createNewProduct(CreateProductSchema productSchema, int categoryId, SearchProductsActivity searchProductsActivity) {
         APIService apiService = RetroInstance.getRetroClient().create(APIService.class);
@@ -312,19 +315,24 @@ come inserimento, modifica ed eliminazione di una categoria. Dal momento in cui 
     tramite un textwatcher viene chiamata una funzione dell'adapter per cercare e mostrare i prodotti contenenti quella sottostringa
     tra tutti i prodotti posseduti in quella categoria.
     \begin{lstlisting}
-        @Override
         public void afterTextChanged(Editable s) {
-            filterList(s.toString());
-        }
+            filterList(s.toString());}
     \end{lstlisting}
     \subsection{Ricerca di un prodotto}
+    \begin{wrapfigure}{l}{3.5cm}
+        \includegraphics[height=3.5cm]{img/search.PNG}
+    \end{wrapfigure}
     La ricerca di un prodotto viene fatta tramite le chiamate, al ritorno da una ricerca si ottiene la lista di tutti i prodotti con 
     quel barcode. Se si clicca su un prodotto questo viene aggiunto alla lista dei prodotti nel database locale, ma prima viene chiesto di 
     darne una valutazione da 1 a 5 stelle, tramite una rating bar.
+    \\\\\\
     \subsection{Inserimento di un nuovo prodotto}
     Se non si è trovato prodotti che rispecchiano i parametri di ricerca è possibile inserirne di nuovi, l'inserimento di un nuovo prodotto
     tramite l'apposito button richiederà il nome, la descrizione di un prodotto ed eventualmente è possibile scattare una foto al prodotto tramite 
-    la fotocamera. 
+    la fotocamera. Se si tenta di inserire un prodotto che è già inserito il prodotto vedrà aumentare la sua quantità di 1. Se si tenta di inserire un
+    prodotto che già è presente in un altra categoria il prodotto verrà spostato nella nuova catogoria. Se si inserisce un prodotto che era nella 
+    shoppinglist verrà rimosso da quest'ultima. Questo meccanismo è stato implementato tramite una piccola query al database che verifica se un prodotto 
+    è già al suo interno o meno.
     \begin{lstlisting}
         camera.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -374,17 +382,22 @@ come inserimento, modifica ed eliminazione di una categoria. Dal momento in cui 
         if (!this.productList.get(position).getImg().startsWith("data:image/jpeg;base64,"))
             this.productList.get(position).setImg("data:image/jpeg;base64," + this.productList.get(position).getImg());
         Glide.with(context).load(this.productList.get(position).getImg())
-               .apply(RequestOptions.centerCropTransform()).into(holder.productImage);
+        .apply(RequestOptions.centerCropTransform()).into(holder.productImage);
         } else
-           Glide.with(context).load(R.drawable.no_image_avaible).into(holder.productImage);
+        Glide.with(context).load(R.drawable.no_image_avaible).into(holder.productImage);
     \end{lstlisting}
+    \begin{wrapfigure}{r}{3.5cm}
+        \includegraphics[width=3.5cm]{img/shoppinglist.PNG}
+    \end{wrapfigure}
     \subsection{Lista della spesa}
     La lista della spesa è implementata sempre tramite una RecyclerView che visualizzerà tutti i prodotti con quantità
     pari a 0. Anch'essa un Adapter  e si appoggia al ViewModel dei prodotti che ritorna un observer per i soli prodotti che hanno un quantità 
     pari a 0. Il tasto delete nella lista della spesa elimina un prodotto nel database locale, mentre se si riacquista un prodotto
     che è nella lista della spesa viene tolto da quest'ultima e inserito nella categoria di appartenenza.
+    \\\\\\\\\\\\\\
+
     \section{Conclusioni}
     Il progetto è stato molto utile per affacciarmi e imparare delle nuove tecnologie che non avevo mai sperimentato prima.
     Probabilemte non tutte le scelte sono state corrette a livello tecnico ma molte sono state prese per diversificare e sperimentare
-    con una nuova tecnologia e cercare di apprendere il più possibile.
+    con una nuova tecnologia e cercare di apprendere il più possibile. 
     \end{document}

@@ -1,12 +1,12 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2021.9.3)  5 SEP 2021 13:19
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2021.9.3)  10 SEP 2021 15:55
 entering extended mode
 **c:/Users/tomas/Desktop/TrackMyPantry/Docs/Report.tex
 (c:/Users/tomas/Desktop/TrackMyPantry/Docs/Report.tex
 LaTeX2e <2021-06-01> patch level 1
 L3 programming layer <2021-08-27> (C:\Users\tomas\AppData\Local\Programs\MiKTeX\tex/latex/base\article.cls
 Document Class: article 2021/02/12 v1.4n Standard LaTeX document class
-(C:\Users\tomas\AppData\Local\Programs\MiKTeX\tex/latex/base\size11.clo
-File: size11.clo 2021/02/12 v1.4n Standard LaTeX file (size option)
+(C:\Users\tomas\AppData\Local\Programs\MiKTeX\tex/latex/base\size12.clo
+File: size12.clo 2021/02/12 v1.4n Standard LaTeX file (size option)
 )
 \c@part=\count182
 \c@section=\count183
@@ -235,218 +235,23 @@ Package: color 2020/02/24 v1.2b Standard LaTeX Color (DPC)
 File: color.cfg 2016/01/02 v1.6 sample color configuration
 )
 Package color Info: Driver file: pdftex.def on input line 149.
-) (C:\Users\tomas\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstlang1.sty
+) (C:\Users\tomas\AppData\Local\Programs\MiKTeX\tex/latex/geometry\geometry.sty
+Package: geometry 2020/01/02 v5.9 Page Geometry
+ (C:\Users\tomas\AppData\Local\Programs\MiKTeX\tex/generic/iftex\ifvtex.sty
+Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
+)
+\Gm@cnth=\count287
+\Gm@cntv=\count288
+\c@Gm@tempcnt=\count289
+\Gm@bindingoffset=\dimen160
+\Gm@wd@mp=\dimen161
+\Gm@odd@mp=\dimen162
+\Gm@even@mp=\dimen163
+\Gm@layoutwidth=\dimen164
+\Gm@layoutheight=\dimen165
+\Gm@layouthoffset=\dimen166
+\Gm@layoutvoffset=\dimen167
+\Gm@dimlist=\toks26
+ (C:\Users\tomas\AppData\Local\Programs\MiKTeX\tex/latex/geometry\geometry.cfg)) (C:\Users\tomas\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstlang1.sty
 File: lstlang1.sty 2020/03/24 1.8d listings language file
-) (C:\Users\tomas\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3backend-pdftex.def
-File: l3backend-pdftex.def 2021-08-04 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count287
-\l__pdf_internal_box=\box55
-) (Report.aux)
-\openout1 = `Report.aux'.
-
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 32.
-LaTeX Font Info:    ... okay on input line 32.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 32.
-LaTeX Font Info:    ... okay on input line 32.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 32.
-LaTeX Font Info:    ... okay on input line 32.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 32.
-LaTeX Font Info:    ... okay on input line 32.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 32.
-LaTeX Font Info:    ... okay on input line 32.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 32.
-LaTeX Font Info:    ... okay on input line 32.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 32.
-LaTeX Font Info:    ... okay on input line 32.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 32.
-LaTeX Font Info:    ... okay on input line 32.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 32.
-LaTeX Font Info:    ... okay on input line 32.
- (C:\Users\tomas\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.mkii
-[Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count288
-\scratchdimen=\dimen160
-\scratchbox=\box56
-\nofMPsegments=\count289
-\nofMParguments=\count290
-\everyMPshowfont=\toks26
-\MPscratchCnt=\count291
-\MPscratchDim=\dimen161
-\MPnumerator=\count292
-\makeMPintoPDFobject=\count293
-\everyMPtoPDFconversion=\toks27
-) (C:\Users\tomas\AppData\Local\Programs\MiKTeX\tex/latex/epstopdf-pkg\epstopdf-base.sty
-Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
-Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 485.
- (C:\Users\tomas\AppData\Local\Programs\MiKTeX\tex/latex/00miktex\epstopdf-sys.cfg
-File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
-))
-Package hyperref Info: Link coloring OFF on input line 32.
- (C:\Users\tomas\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\nameref.sty
-Package: nameref 2021-04-02 v2.47 Cross-referencing by name of section
- (C:\Users\tomas\AppData\Local\Programs\MiKTeX\tex/latex/refcount\refcount.sty
-Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
-) (C:\Users\tomas\AppData\Local\Programs\MiKTeX\tex/generic/gettitlestring\gettitlestring.sty
-Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
-\c@section@level=\count294
-)
-LaTeX Info: Redefining \ref on input line 32.
-LaTeX Info: Redefining \pageref on input line 32.
-LaTeX Info: Redefining \nameref on input line 32.
- (Report.out) (Report.out)
-\@outlinefile=\write3
-\openout3 = `Report.out'.
-
-\c@lstlisting=\count295
-
-Overfull \hbox (19.18222pt too wide) in paragraph at lines 45--49
-[]\OT1/cmr/bx/n/10.95 Migliorare il database col-lab-o-ra-tivo:  \OT1/cmr/m/n/10.95 tutti gli utenti dell'applicazione
- []
-
-
-Overfull \hbox (2.4759pt too wide) in paragraph at lines 45--49
-\OT1/cmr/m/n/10.95 col-lab-o-ra-tivo e col-let-tivo, in cui gli utenti pos-sono cer-care i loro prodotti
- []
-
-[1
-
-{C:/Users/tomas/AppData/Local/MiKTeX/pdftex/config/pdftex.map}]
-Overfull \hbox (13.09131pt too wide) in paragraph at lines 69--72
-\OT1/cmr/m/n/10.95 Per i prodotti nel database col-lab-o-ra-tivo per i quali e stata in-serita un'immagine
- []
-
-[2]
-Underfull \hbox (badness 10000) in paragraph at lines 83--86
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 83--86
-
- []
-
-[3]
-Overfull \hbox (117.79565pt too wide) in paragraph at lines 96--97
-[][][][][][][][][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (12.79657pt too wide) in paragraph at lines 97--98
-[][][][][][][][][][][][][][] 
- []
-
-[4]
-Overfull \hbox (0.1965pt too wide) in paragraph at lines 133--134
-[][][][][][][][][][][] 
- []
-
-[5] [6]
-Overfull \hbox (86.29593pt too wide) in paragraph at lines 186--187
-[][][][][][][][][][][][]  
- []
-
-
-Overfull \hbox (117.79565pt too wide) in paragraph at lines 187--188
-[][][][][][][][][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (39.04634pt too wide) in paragraph at lines 197--198
-[][][][][][][][][][][][][][][][][][][][][][][] 
- []
-
-[7]
-Overfull \hbox (95.6955pt too wide) in paragraph at lines 230--232
-[][][][][][][][][][][][][][][][][][][][][][][][][][]  
- []
-
-
-Overfull \hbox (7.49591pt too wide) in paragraph at lines 235--236
-[][][][][][][][][][][][][][][][][][]  
- []
-
-
-Overfull \hbox (7.49591pt too wide) in paragraph at lines 242--243
-[][][][][][][][][][][][][][][][][][]  
- []
-
-
-Overfull \hbox (36.89548pt too wide) in paragraph at lines 249--250
-[][][][][][][][][][][][][][][][][][]  
- []
-
-[8] [9]
-Overfull \hbox (96.74513pt too wide) in paragraph at lines 300--301
-[][][][][][][][][][][][][][][][][][][][][][][] 
- []
-
-[10]
-Overfull \hbox (71.5957pt too wide) in paragraph at lines 332--333
-[][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (65.2454pt too wide) in paragraph at lines 333--334
-[][][][][][][][][][][][][][][][][] 
- []
-
-[11]
-Overfull \hbox (9.59607pt too wide) in paragraph at lines 359--360
-[][][][][][][][][][][][][][][][][]  
- []
-
-
-Overfull \hbox (109.3452pt too wide) in paragraph at lines 360--361
-[][][][][][][][][][][][][][][]  
- []
-
-
-Overfull \hbox (5.97382pt too wide) in paragraph at lines 369--372
-\OT1/cmr/m/n/10.95 dell'applicazione, pochi saranno i prodotti non ac-com-pa-g-nati da un'immagine. 
- []
-
-
-Overfull \hbox (117.79565pt too wide) in paragraph at lines 374--375
-[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]  
- []
-
-
-Overfull \hbox (32.69604pt too wide) in paragraph at lines 375--376
-[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (19.04634pt too wide) in paragraph at lines 376--377
-[][][][][][][][][][][][][][][][][][][][][][][][][][][][][]  
- []
-
-
-Overfull \hbox (83.62047pt too wide) in paragraph at lines 377--378
-[][][][][][][][][][][][][][][][][][][][][][]  
- []
-
-
-Overfull \hbox (111.9704pt too wide) in paragraph at lines 379--380
-[][][][][][][][][][][][][][][][][][][][][][][][][][][][][]  
- []
-
-[12] [13] (Report.aux)
-Package rerunfilecheck Info: File `Report.out' has not changed.
-(rerunfilecheck)             Checksum: C7BEE5EA52C4C7147EF72E664B005EE1;4233.
- ) 
-Here is how much of TeX's memory you used:
- 10772 strings out of 478927
- 158185 string characters out of 2852536
- 680895 words of memory out of 3000000
- 28252 multiletter control sequences out of 15000+600000
- 409168 words of font info for 47 fonts, out of 8000000 for 9000
- 1141 hyphenation exceptions out of 8191
- 60i,6n,66p,437b,1870s stack positions out of 5000i,500n,10000p,200000b,80000s
- <C:\Users\tomas\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm1095.pk><C:/Users/tomas/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Users/tomas/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Users/tomas/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/tomas/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/tomas/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Users/tomas/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr6.pfb><C:/Users/tomas/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on Report.pdf (13 pages, 183059 bytes).
-PDF statistics:
- 475 PDF objects out of 1000 (max. 8388607)
- 258 named destinations out of 1000 (max. 500000)
- 201 words of extra memory for PDF output out of 10000 (max. 10000000)
-
